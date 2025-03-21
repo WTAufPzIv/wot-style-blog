@@ -4,6 +4,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 const Home = () => import("@/pages/index.vue");
 const Login = () => import("@/pages/admin/login.vue");
 const Admin = () => import("@/pages/admin/index.vue");
+const blogDetail = () => import("@/pages/blog-detail/index.vue");
 
 // 基础路由配置
 const routes = [
@@ -24,6 +25,11 @@ const routes = [
 		path: "/admin",
 		name: "Admin",
 		component: Admin
+	},
+	{
+		path: "/blogDetail",
+		name: "blogDetail",
+		component: blogDetail
 	}
 ];
 

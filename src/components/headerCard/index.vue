@@ -1,0 +1,93 @@
+<template>
+	<div class="head-card-wrapper">
+		<div class="c-w-100 line1">
+			<div class="c-w-100">
+				<img :src="nasaImage" alt="" />
+				<div>
+					<p>每日NASA{{ nasaTitle }}</p>
+					<span>{{ nasaText }}</span>
+				</div>
+			</div>
+		</div>
+		<div class="c-w-100 line2">
+			<div class="c-w-25"></div>
+			<div class="c-w-25"></div>
+			<div class="c-w-25"></div>
+			<div class="c-w-25"></div>
+		</div>
+	</div>
+</template>
+
+<script setup lang="ts">
+import { onMounted, ref } from "vue";
+import { getDailyNasaDate } from "@/api/modules/external_InstitutionFiling";
+import { isValidJson } from "@/utils/common";
+
+const nasaImage = ref("");
+const nasaText = ref("");
+const nasaTitle = ref("");
+
+async function fetchDailyNasa() {
+	const res = await getDailyNasaDate();
+	if (isValidJson(res.data)) {
+		const raw = JSON.parse(res.data as string);
+		console.log(raw);
+		nasaImage.value = raw.url;
+		nasaText.value = raw.explanation;
+		nasaTitle.value = `（${raw.title}）`;
+	}
+}
+
+onMounted(() => {
+	fetchDailyNasa();
+});
+</script>
+
+<style scoped lang="scss">
+.head-card-wrapper {
+	width: 100%;
+	.line1 {
+		display: flex;
+		flex-direction: row;
+		padding: 12px;
+		box-sizing: border-box;
+		position: relative;
+		div {
+			height: 400px;
+			border-radius: 10px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			overflow: hidden;
+			position: relative;
+			img {
+				width: 100%;
+				height: auto;
+			}
+			div {
+				position: absolute;
+				right: 0;
+				color: $common-font-color;
+				p {
+					font-size: 48px;
+				}
+				span {
+					line-height: 24px;
+					letter-spacing: 2px;
+				}
+			}
+		}
+	}
+	.line2 {
+		display: flex;
+		flex-direction: row;
+		padding: 12px;
+		box-sizing: border-box;
+		div {
+			background: yellow;
+			height: 300px;
+		}
+	}
+}
+</style>

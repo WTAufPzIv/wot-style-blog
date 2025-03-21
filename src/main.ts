@@ -5,16 +5,7 @@ import "@/styles/reset.scss";
 import "@/styles/common.scss";
 import "@/assets/fonts/font.scss";
 import naive from "naive-ui";
+import "md-editor-v3/lib/style.css";
+import "md-editor-v3/lib/preview.css";
 
-import VueMarkdownEditor from "@kangc/v-md-editor";
-import "@kangc/v-md-editor/lib/style/base-editor.css";
-import vuepressTheme from "@kangc/v-md-editor/lib/theme/vuepress.js";
-import "@kangc/v-md-editor/lib/theme/style/vuepress.css";
-
-import Prism from "prismjs";
-
-VueMarkdownEditor.use(vuepressTheme, {
-	Prism
-});
-
-createApp(App).use(router).use(naive).use(VueMarkdownEditor).mount("#app");
+createApp(App).use(router).use(naive).mount("#app");

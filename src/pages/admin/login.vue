@@ -1,13 +1,11 @@
 <template>
-	<CommonWrapper>
-		<div class="login-form">
-			<img :class="isMobile ? 'mo-header' : 'pc-header'" src="@/assets/images/head_logo.png" alt="" />
-			<div :style="{ width: '400px' }">
-				<n-input class="mt30" type="text" size="large" placeholder="账号" v-model:value="username" />
-				<n-input class="mt20" type="text" size="large" placeholder="密码" v-model:value="password" />
-				<n-button size="large" :style="{ width: '100%' }" class="mt20" type="primary" @click="handleFetchlogin"> 登入 </n-button>
-			</div>
-		</div>
+	<CommonWrapper align="center">
+		<img :class="isMobile ? 'mo-header' : 'pc-header'" src="@/assets/images/head_logo.png" alt="" />
+		<n-card class="mt20 ml12 mr12 c-w-90">
+			<n-input class="mt30" type="text" size="large" placeholder="账号" v-model:value="username" />
+			<n-input class="mt20" type="text" size="large" placeholder="密码" v-model:value="password" />
+			<n-button size="large" :style="{ width: '100%' }" class="mt20" type="primary" @click="handleFetchlogin"> 登入 </n-button>
+		</n-card>
 	</CommonWrapper>
 </template>
 
@@ -33,20 +31,20 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 .login-form {
-	width: 100%;
-	height: 100vh;
+	width: 400px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	img {
-		margin-top: -100px;
-	}
-	.mo-header {
-		width: 50vw;
-	}
-	.pc-header {
-		width: 300px;
-	}
+	padding: 24px 0;
+	//img {
+	//	margin-top: -100px;
+	//}
+}
+.mo-header {
+	width: 50vw;
+}
+.pc-header {
+	width: 300px;
 }
 </style>

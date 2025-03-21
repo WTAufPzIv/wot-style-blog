@@ -16,3 +16,7 @@ export const checkIsLogin = () => {
 	// 机构业务类型
 	return http.post<{ username: string } | null>(PORT1 + `/auroraWeb/adminIsLogin`, {});
 };
+
+export const getDailyNasaDate = () => {
+	return http.post(PORT1 + `/auroraWeb/getNasaAPOD`, {});
+};

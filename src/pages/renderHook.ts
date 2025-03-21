@@ -7,8 +7,6 @@ export const useHomePageRenderHook = () => {
 	const screenTwoOpacity = ref(0);
 
 	function handleSectionChange(oldPage: any, newPage: any) {
-		console.log(oldPage);
-		console.log(newPage);
 		if (oldPage.index === 0 && newPage.index === 1) {
 			screenOneOpacity.value = 0;
 			screenTwoOpacity.value = 1;

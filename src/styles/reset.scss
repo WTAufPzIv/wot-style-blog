@@ -28,22 +28,67 @@ body,
   border-radius: 100px;
 }
 
-.v-md-editor {
-  background-color: transparent !important;
-}
-.v-md-editor.v-md-editor--edit {
-  background-color: transparent;
-}
-.v-md-editor__toolbar {
-  background-color: transparent;
-  color: white;
-}
-.v-md-textarea-editor textarea {
-  background-color: transparent;
-  color: white !important;
-}
-
-.vuepress-markdown-body {
-  background-color: transparent !important;
-  color: white !important;
+//.v-md-editor {
+//  background-color: transparent !important;
+//}
+//.v-md-editor.v-md-editor--edit {
+//  background-color: transparent;
+//}
+//.v-md-editor__toolbar {
+//  background-color: transparent;
+//  color: white;
+//}
+//.v-md-textarea-editor textarea {
+//  background-color: transparent;
+//  color: white !important;
+//}
+//
+//.vuepress-markdown-body {
+//  background-color: transparent !important;
+//  color: white !important;
+//}
+#preview-only {
+  background: transparent !important;
+  .md-editor-code-head {
+    background: #000 !important;
+  }
+  code {
+    background: #000 !important;
+    color: #01A84D !important;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    color: #f9f5e1 !important;
+  }
+  hr {
+    border-color: #f9f5e1 !important;
+    opacity: 0.4;
+  }
+  p {
+    color: #b8b8a2 !important;
+  }
+  a {
+    color: #fab81b !important;
+    &:hover {
+      color: #fab81b !important;
+    }
+  }
+  ol {
+    li {
+      color: #f9f5e1 !important;
+      opacity: 0.7;
+      text-decoration: gold;
+      list-style: decimal !important;
+    }
+  }
+  ul {
+    li {
+      color: #f9f5e1 !important;
+      opacity: 0.7;
+      text-decoration: gold;
+      list-style: disc !important;
+    }
+  }
+  blockquote {
+    border-color: #f25322 !important;
+  }
 }
