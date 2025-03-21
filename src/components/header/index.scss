@@ -1,0 +1,132 @@
+.header-bar {
+  width: 100%;
+  height: 78px;
+  background: $blob-bg;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  .head-content {
+    width: 100%;
+    max-width: 1280px;
+    height: 78px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    img {
+      height: 40%;
+      margin-left: 24px;
+    }
+    .tab-wrapper {
+      ul {
+        height: 78px;
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        text-decoration: none;
+        li {
+          text-align: center;
+          //background: #888;
+          line-height: 78px;
+          height: 78px;
+          width: 120px;
+          margin-right: 10px;
+          font-family: GeTe;
+          font-size: 24px;
+          text-decoration: none;
+          list-style: none;
+          position: relative;
+          a {
+            text-decoration: none;
+          }
+          span {
+            cursor: pointer;
+            color: $common-font-color;
+          }
+        }
+      }
+      .blob-dropdown {
+        position: absolute;
+        left: 0;
+        top: 78px;
+        width: 120px;
+        height: 0;
+        transition: height 0.5s ease;
+        background: $blob-bg;
+        z-index: 9;
+      }
+      .blob-btn {
+        &:hover {
+          .blob-dropdown {
+            height: max-content;
+          }
+        }
+      }
+    }
+    .m-tab {
+      position: relative;
+      flex:1;
+      height: 78px;
+      img {
+        position: absolute;
+        right: 20px;
+        top: 25px;
+        height: 28px;
+        width: auto;
+        cursor: pointer;
+      }
+    }
+  }
+}
+.mo-fullsreen-menu-wrapper {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top:0;
+  left:0;
+  z-index: 10;
+  background: $blob-bg;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  img {
+    position: absolute;
+    right: 20px;
+    top: 25px;
+    height: 28px;
+    width: auto;
+    cursor: pointer;
+  }
+  ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    top: 50%;
+    margin: 0;
+    padding: 0;
+    li {
+      text-align: center;
+      //background: #888;
+      line-height: 78px;
+      height: 78px;
+      width: 120px;
+      font-family: GeTe;
+      font-size: 24px;
+      text-decoration: none;
+      list-style: none;
+      position: relative;
+      a {
+        text-decoration: none;
+      }
+      span {
+        cursor: pointer;
+        color: $common-font-color;
+      }
+    }
+  }
+}

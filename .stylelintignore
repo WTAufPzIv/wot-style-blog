@@ -1,0 +1,11 @@
+/dist/*
+/html/*
+/public/*
+public/*
+node_modules
+hrssWeb
+hrssWebExternal
+hrssWebAdmin
+node_modules/*
+/node_modules/*
+package-lock.json

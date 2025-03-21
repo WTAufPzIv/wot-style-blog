@@ -1,0 +1,13 @@
+/dist/*
+/html/*
+.local
+hrssWeb
+hrssWebExternal
+hrssWebAdmin
+/node_modules/**
+*.bat
+
+**/*.svg
+**/*.sh
+
+/public/*
