@@ -1,6 +1,6 @@
 <template>
 	<div class="home-screen-two">
-		<headerCard></headerCard>
+		<headerCard class="mt24"></headerCard>
 		<DevideTitle>最近文章</DevideTitle>
 	</div>
 </template>

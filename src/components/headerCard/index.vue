@@ -34,7 +34,7 @@ async function fetchDailyNasa() {
 		console.log(raw);
 		nasaImage.value = raw.url;
 		nasaText.value = raw.explanation;
-		nasaTitle.value = `（${raw.title}）`;
+		nasaTitle.value = `(${raw.title})`;
 	}
 }
 
@@ -61,18 +61,39 @@ onMounted(() => {
 			align-items: center;
 			overflow: hidden;
 			position: relative;
+			user-select: none;
+			&:hover {
+				img {
+					width: 105%;
+				}
+			}
 			img {
 				width: 100%;
 				height: auto;
+				transition: all 0.6s ease-in-out;
 			}
 			div {
 				position: absolute;
-				right: 0;
 				color: $common-font-color;
+				width: 100%;
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				align-items: flex-end;
+				padding: 24px;
+				box-sizing: border-box;
 				p {
 					font-size: 48px;
+					font-weight: bold;
+					margin-bottom: 12px;
+					cursor: pointer;
 				}
 				span {
+					display: inline-block;
+					width: 70%;
+					height: 50%;
+					overflow: hidden;
+					text-overflow: ellipsis;
 					line-height: 24px;
 					letter-spacing: 2px;
 				}
