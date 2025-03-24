@@ -8,6 +8,10 @@ body,
   background: #1c1c1e;
 }
 
+body {
+  line-height: unset !important;
+}
+
 /* 整个滚动条 */
 ::-webkit-scrollbar {
   width: 5px; /* 竖向滚动条宽度 */
@@ -28,25 +32,6 @@ body,
   border-radius: 100px;
 }
 
-//.v-md-editor {
-//  background-color: transparent !important;
-//}
-//.v-md-editor.v-md-editor--edit {
-//  background-color: transparent;
-//}
-//.v-md-editor__toolbar {
-//  background-color: transparent;
-//  color: white;
-//}
-//.v-md-textarea-editor textarea {
-//  background-color: transparent;
-//  color: white !important;
-//}
-//
-//.vuepress-markdown-body {
-//  background-color: transparent !important;
-//  color: white !important;
-//}
 #preview-only {
   background: transparent !important;
   .md-editor-code-head {

@@ -13,7 +13,7 @@ export const _pageList = [
 	},
 	{
 		path: "/note",
-		title: "记录"
+		title: "图记"
 	},
 	{
 		path: "/assorted",

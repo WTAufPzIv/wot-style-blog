@@ -20,3 +20,22 @@ export const checkIsLogin = () => {
 export const getDailyNasaDate = () => {
 	return http.post(PORT1 + `/auroraWeb/getNasaAPOD`, {});
 };
+
+// export const transDailyNasaDate = (params: { text: string }) => {
+// 	return http.post("https://open.hunyuan.tencent.com/openapi/v1/agent/chat/completions", {
+// 		assistant_id: "Tp2Wf3EASOyh",
+// 		user_id: "AURORA",
+// 		stream: false,
+// 		messages: [
+// 			{
+// 				role: "user",
+// 				content: [
+// 					{
+// 						type: "text",
+// 						text: params.text
+// 					}
+// 				]
+// 			}
+// 		]
+// 	});
+// };
