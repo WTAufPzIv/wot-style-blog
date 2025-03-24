@@ -15,7 +15,8 @@ const { isMobile } = useDevice();
 	width: 100%;
 	margin: 24px 0;
 	span {
-		font-family: GeTe;
+		//font-family: GeTe;
+		font-weight: bold;
 		color: $common-font-color;
 	}
 }
