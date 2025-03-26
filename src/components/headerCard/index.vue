@@ -11,7 +11,7 @@
 		</div>
 		<div class="c-w-100 line2" :isMobile="isMobile">
 			<div class="hm-dailly">
-				<img v-if="harImage" ref="HmImageRef" :src="harImage" alt="" />
+				<img ref="HmImageRef" :src="harImage" alt="" />
 				<div class="hm-dailly__content">
 					<p>哈佛艺术博物馆</p>
 					<span>每日藏品</span>
@@ -61,19 +61,7 @@ async function fetchHarvardMuseumsData() {
 		harRawJson.value = res.data as string;
 		const raw = JSON.parse(res.data as string);
 		console.log(raw);
-		axios
-			.get("https://ids.lib.harvard.edu/ids/iiif/495095862/full/full/0/default.jpg", {
-				responseType: "blob" // 关键：指定响应类型为Blob
-			})
-			.then(response => {
-				// 获取Blob数据
-				const blob = response.data;
-				// 生成临时URL
-				harImage.value = URL.createObjectURL(blob);
-			})
-			.catch(error => {
-				console.error("请求失败:", error);
-			});
+		raw.images[0].idsid && (harImage.value = `https://ids.hvrd.art/ids/view/${raw.images[0].idsid}?width=500&height=500`);
 	}
 }
 

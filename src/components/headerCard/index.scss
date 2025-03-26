@@ -90,6 +90,11 @@
       position: relative;
       margin-bottom: 14px;
       box-sizing: border-box;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       &:hover {
         img {
           width: 105%;
