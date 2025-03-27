@@ -3,14 +3,13 @@
 		<div class="image-detail-wrapper">
 			<div class="header" :isMobile="isMobile">
 				<p class="title">{{ title }}</p>
-				<p class="time">{{ time }}</p>
+				<p class="time">朝代：{{ text1 || "无数据" }}</p>
+				<p class="time">时期：{{ text2 || "无数据" }}</p>
+				<p class="time">类型：{{ text3 || "无数据" }}</p>
+				<p class="time">出版：{{ text4 || "无数据" }}</p>
+				<p class="time">入库：{{ text5 || "无数据" }}年</p>
 			</div>
-			<div class="text-list-wrapper" :isMobile="isMobile">
-				<div v-for="item in text" :key="item" class="text-item">
-					<p>{{ item }}</p>
-				</div>
-			</div>
-			<div class="text-list-wrapper">
+			<div class="text-list-wrapper mt10">
 				<n-image
 					:previewedImgProps="{ style: { height: '90vh' } }"
 					width="100%"
@@ -31,9 +30,12 @@ import useDevice from "@/hook/window";
 const props = withDefaults(
 	defineProps<{
 		title: string;
-		text: string[];
+		text1: string;
+		text2: string;
+		text3: string;
+		text4: string;
+		text5: string;
 		images: string[];
-		time: string;
 	}>(),
 	{}
 );

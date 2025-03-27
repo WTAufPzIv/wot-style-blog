@@ -1,7 +1,7 @@
 <template>
 	<div class="head-card-wrapper">
 		<div class="c-w-100 nasa">
-			<div class="nasa-card c-w-100" @click="handleOpenDetail">
+			<div class="nasa-card c-w-100" @click="handleOpenNasaDetail">
 				<img :src="nasaImage" alt="" />
 				<div class="nasa-card__content">
 					<p>每日NASA{{ nasaTitle }}</p>
@@ -10,7 +10,7 @@
 			</div>
 		</div>
 		<div class="c-w-100 line2" :isMobile="isMobile">
-			<div class="hm-dailly">
+			<div class="hm-dailly" @click="handleOpenMuseumsDetail">
 				<img ref="HmImageRef" :src="harImage" alt="" />
 				<div class="hm-dailly__content">
 					<p>哈佛艺术博物馆</p>
@@ -29,6 +29,7 @@ import { isValidJson } from "@/utils/common";
 import { triggerImageDetailHook } from "@/components/imageBlogDetail/trigger";
 import useDevice from "@/hook/window";
 import axios from "axios";
+import { triggerMuseumsItemDetailHook } from "@/components/museumItemDetail/trigger";
 
 const { isMobile } = useDevice();
 // nasa
@@ -39,9 +40,10 @@ const nasaDate = ref("");
 const nasaTrans = ref("");
 // harvardMuseum
 const harImage = ref("");
-const harRawJson = ref("");
+const harRawJson = ref();
 const HmImageRef = ref();
 const { openImageDialog } = triggerImageDetailHook();
+const { openMuseumItemDialog } = triggerMuseumsItemDetailHook();
 
 async function fetchDailyNasa() {
 	const res = await getDailyNasaDate();
@@ -58,14 +60,13 @@ async function fetchDailyNasa() {
 async function fetchHarvardMuseumsData() {
 	const res = await getDailyHarvardMuseumsDate();
 	if (isValidJson(res.data)) {
-		harRawJson.value = res.data as string;
-		const raw = JSON.parse(res.data as string);
-		console.log(raw);
-		raw.images[0].idsid && (harImage.value = `https://ids.hvrd.art/ids/view/${raw.images[0].idsid}?width=500&height=500`);
+		harRawJson.value = JSON.parse(res.data as string);
+		harRawJson.value.images[0].idsid &&
+			(harImage.value = `https://ids.hvrd.art/ids/view/${harRawJson.value.images[0].idsid}?width=500&height=500`);
 	}
 }
 
-async function handleOpenDetail() {
+async function handleOpenNasaDetail() {
 	openImageDialog({
 		title: `每日NASA${nasaTitle.value}`,
 		text: nasaTrans.value
@@ -73,6 +74,20 @@ async function handleOpenDetail() {
 			: [nasaText.value + "(数据来源：NASA APOD)"],
 		images: nasaImage.value ? [nasaImage.value] : [],
 		time: "更新时间：" + nasaDate.value
+	});
+}
+
+async function handleOpenMuseumsDetail() {
+	openMuseumItemDialog({
+		title: harRawJson.value.transedTitle,
+		text1: harRawJson.value.transedPeriod,
+		text2: harRawJson.value.transedDated,
+		text3: harRawJson.value.transedClassification,
+		text4: harRawJson.value.transedProvenance,
+		text5: harRawJson.value.accessionyear,
+		images: harRawJson.value.images.map(item => {
+			return `https://ids.hvrd.art/ids/view/${item.idsid}?width=500&height=500`;
+		})
 	});
 }
 
