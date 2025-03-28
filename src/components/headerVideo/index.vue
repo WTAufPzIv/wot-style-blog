@@ -1,8 +1,7 @@
 <template>
-	<div class="head-video-wrapper">
+	<div :class="['head-video-wrapper', isMobile ? 'mo' : 'pc']">
 		<div class="title">
-			<img src="@/assets/images/head_logo.png" />
-			<span class="line1">{{ text1 }}</span>
+			<span class="line1">Cure For Me</span>
 			<!--			<span class="line2">{{ text2 }}</span>-->
 		</div>
 		<div class="video-wrapper">
@@ -13,7 +12,11 @@
 	</div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import useDevice from "@/hook/window";
+
+const { isMobile } = useDevice();
+</script>
 
 <style scoped lang="scss">
 @import "./index.scss";

@@ -2,8 +2,8 @@
 	<div :class="['screen-one-wrapper', isMobile ? 'mo' : 'pc']">
 		<div class="title">
 			<img src="@/assets/images/head_logo.png" />
-			<span class="line1">{{ text1 }}</span>
-			<!--			<span class="line2">{{ text2 }}</span>-->
+			<!--			<span class="line1">{{ text1 }}</span>-->
+			<!--			&lt;!&ndash;			<span class="line2">{{ text2 }}</span>&ndash;&gt;-->
 		</div>
 		<div class="video-wrapper">
 			<video loop muted="muted" autoplay="autoplay" playsinline :controls="false">

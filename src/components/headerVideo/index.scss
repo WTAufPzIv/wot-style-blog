@@ -11,7 +11,7 @@
     left: 0;
     width: 100vw;
     color: $common-font-color;
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -27,7 +27,7 @@
   }
 }
 .video-wrapper {
-  width: 100vw;
+  width: 100%;
   height: 100%;
   overflow: hidden;
   display: flex;
@@ -39,5 +39,22 @@
     min-width: 120vw;
     height: 100vh;
     object-fit: cover;
+  }
+}
+
+.pc {
+  span {
+    font-size: 2vw;
+    color: $common-font-color;
+    margin-top: 10px;
+    letter-spacing: 10px;
+  }
+}
+.mo {
+  span {
+    font-size: 6vw;
+    color: $common-font-color;
+    margin-top: 10px;
+    letter-spacing: 8px;
   }
 }
