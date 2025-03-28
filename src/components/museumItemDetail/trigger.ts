@@ -16,6 +16,7 @@ export const triggerMuseumsItemDetailHook = () => {
 		text5: string;
 		images: string[];
 		dataSource?: { url?: string; urlName: string };
+		entryFrom?: "museum" | "geographic";
 	}) {
 		setHasModalOpen(true);
 		dialog.create({

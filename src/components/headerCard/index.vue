@@ -17,7 +17,7 @@
 					<span>每日藏品</span>
 				</div>
 			</div>
-			<div class="hm-dailly" @click="handleOpenMuseumsDetail">
+			<div class="hm-dailly" @click="handleOpenNgDetail">
 				<img :src="ngImage" alt="" />
 				<div class="hm-dailly__content">
 					<p>美国国家地理杂志</p>
@@ -112,28 +112,23 @@ async function handleOpenMuseumsDetail() {
 			return `https://ids.hvrd.art/ids/view/${item.idsid}?width=500&height=500`;
 		}),
 		dataSource: {
-			url: "https://www.ngchina.com.cn/",
-			urlName: "美国国家地理杂志中文网（National Geographic）"
+			url: "https://harvardartmuseums.org/",
+			urlName: "哈佛大学艺术博物馆"
 		}
 	});
 }
 
 async function handleOpenNgDetail() {
-	// openMuseumItemDialog({
-	// 	title: harRawJson.value.transedTitle,
-	// 	text1: harRawJson.value.transedPeriod,
-	// 	text2: harRawJson.value.transedDated,
-	// 	text3: harRawJson.value.transedClassification,
-	// 	text4: harRawJson.value.transedProvenance,
-	// 	text5: harRawJson.value.accessionyear,
-	// 	images: harRawJson.value.images.map(item => {
-	// 		return `https://ids.hvrd.art/ids/view/${item.idsid}?width=500&height=500`;
-	// 	}),
-	// 	dataSource: {
-	// 		url: "https://www.ngchina.com.cn/",
-	// 		urlName: "美国国家地理杂志中文网（National Geographic）"
-	// 	}
-	// });
+	openMuseumItemDialog({
+		title: ngRawJson.value[0].title,
+		text1: ngRawJson.value[0].photoer,
+		images: [ngRawJson.value[0].pic],
+		dataSource: {
+			url: "https://www.ngchina.com.cn/",
+			urlName: "美国国家地理杂志中文网（National Geographic）"
+		},
+		entryFrom: "geographic"
+	} as any);
 }
 
 onMounted(() => {

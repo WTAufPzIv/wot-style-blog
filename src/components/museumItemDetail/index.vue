@@ -24,13 +24,17 @@
 					</ul>
 				</template>
 			</n-carousel>
-			<div class="desc-wrapper">
+			<div class="desc-wrapper" v-if="entryFrom === 'museum'">
 				<p class="title">{{ title }}</p>
 				<p class="time">朝代：{{ text1 || "无数据" }}</p>
 				<p class="time">时期：{{ text2 || "无数据" }}</p>
 				<p class="time">类型：{{ text3 || "无数据" }}</p>
 				<p class="time">出版：{{ text4 || "无数据" }}</p>
 				<p class="time">入库：{{ text5 || "无数据" }}年</p>
+			</div>
+			<div class="desc-wrapper" v-if="entryFrom === 'geographic'">
+				<p class="title">{{ title }}</p>
+				<p class="time">{{ text1 || "无数据" }}</p>
 			</div>
 		</div>
 		<data-source :style="{ maxWidth: '1280px' }" v-if="dataSource" v-bind="dataSource" class="mt50"></data-source>
@@ -44,6 +48,7 @@ import DataSource from "@/components/dataSource/index.vue";
 
 const props = withDefaults(
 	defineProps<{
+		entryFrom: "museum" | "geographic";
 		title: string;
 		text1: string;
 		text2: string;
@@ -56,7 +61,9 @@ const props = withDefaults(
 			urlName: string;
 		};
 	}>(),
-	{}
+	{
+		entryFrom: "museum"
+	}
 );
 
 const { isMobile } = useDevice();
