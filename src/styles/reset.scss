@@ -12,6 +12,14 @@ body {
   line-height: unset !important;
 }
 
+a {
+  color: #fab81b !important;
+  text-decoration: none !important;
+  &:hover {
+    color: #fab81b !important;
+  }
+}
+
 /* 整个滚动条 */
 ::-webkit-scrollbar {
   width: 5px; /* 竖向滚动条宽度 */

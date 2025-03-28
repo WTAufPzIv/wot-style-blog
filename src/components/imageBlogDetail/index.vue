@@ -11,22 +11,16 @@
 				</div>
 			</div>
 			<div class="text-list-wrapper">
-				<n-image
-					:previewedImgProps="{ style: { height: '90vh' } }"
-					width="100%"
-					v-for="item in images"
-					:key="item"
-					class="image-item"
-					:src="item"
-					alt=""
-				/>
+				<n-image width="100%" v-for="item in images" :key="item" class="image-item" :src="item" alt="" />
 			</div>
+			<data-source v-if="dataSource" v-bind="dataSource" class="mt30"></data-source>
 		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
 import useDevice from "@/hook/window";
+import DataSource from "@/components/dataSource/index.vue";
 
 const props = withDefaults(
 	defineProps<{
@@ -34,6 +28,10 @@ const props = withDefaults(
 		text: string[];
 		images: string[];
 		time: string;
+		dataSource?: {
+			url?: string;
+			urlName: string;
+		};
 	}>(),
 	{}
 );

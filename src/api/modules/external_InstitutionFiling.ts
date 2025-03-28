@@ -24,3 +24,7 @@ export const getDailyNasaDate = () => {
 export const getDailyHarvardMuseumsDate = () => {
 	return http.post(PORT1 + `/auroraWeb/getHarvardMusiumsDailly`, {});
 };
+
+export const getDailyNationalGeographicDate = () => {
+	return http.post(PORT1 + `/auroraWeb/getNationalGeographicDailly`, {});
+};

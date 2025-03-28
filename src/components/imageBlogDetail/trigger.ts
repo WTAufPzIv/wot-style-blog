@@ -7,7 +7,13 @@ export const triggerImageDetailHook = () => {
 	const dialog = useDialog();
 	const { setHasModalOpen } = useModalCheck();
 
-	function openImageDialog(params: { title: string; text: string[]; images: string[]; time: string }) {
+	function openImageDialog(params: {
+		title: string;
+		text: string[];
+		images: string[];
+		time: string;
+		dataSource?: { url?: string; urlName: string };
+	}) {
 		setHasModalOpen(true);
 		dialog.create({
 			icon: () => null,
