@@ -1,0 +1,29 @@
+.recent-wrapper {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  &[isMobile="true"] {
+    .recent-item {
+      width: 100%;
+    }
+  }
+  &[isMobile="false"] {
+    .recent-item {
+      width: 33.33333%;
+    }
+  }
+  .recent-item {
+    aspect-ratio: 2/1.5;
+    box-sizing: border-box;
+    padding: 6px;
+    .recent-container {
+      display: flex;
+      background: $common-bg-l2;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

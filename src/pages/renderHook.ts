@@ -18,12 +18,13 @@ export const useHomePageRenderHook = () => {
 				headBarOpacity.value = 1;
 			}, 50);
 		} else {
-			screenOneOpacity.value = 1;
-			screenTwoOpacity.value = 0;
-			headBarOpacity.value = 0;
-			setTimeout(() => {
-				headBarDisplay.value = "none";
-			}, 1000);
+			// screenOneOpacity.value = 1;
+			// screenTwoOpacity.value = 0;
+			// headBarOpacity.value = 0;
+			// setTimeout(() => {
+			// 	headBarDisplay.value = "none";
+			// }, 1000);
+			return false;
 		}
 	}
 

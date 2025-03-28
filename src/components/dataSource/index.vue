@@ -34,7 +34,7 @@ const props = withDefaults(
 		width: 100%;
 		height: 1px;
 		background: $common-font-color;
-		opacity: 0.4;
+		opacity: 0.3;
 	}
 	p {
 		color: $common-font-color;

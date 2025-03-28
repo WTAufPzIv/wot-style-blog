@@ -34,6 +34,8 @@ onMounted(async () => {
 			scrollingSpeed: 1000,
 			touchSensitivity: 10,
 			keyboardScrolling: false,
+			scrollOverflow: true,
+			scrollBar: false,
 			beforeLeave: handleSectionChange
 		});
 	}
@@ -67,9 +69,9 @@ onMounted(async () => {
 		padding-top: 78px;
 		overflow-y: scroll;
 		overflow-x: hidden;
+		box-sizing: border-box;
 		.content-main-wrapper {
-			width: 100vw;
-			height: 100vh;
+			width: 100%;
 			transition: all 1s;
 			position: relative;
 			background: $common-bg;

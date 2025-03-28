@@ -122,6 +122,10 @@ async function handleOpenNgDetail() {
 	openMuseumItemDialog({
 		title: ngRawJson.value[0].title,
 		text1: ngRawJson.value[0].photoer,
+		text2: "",
+		text3: "",
+		text4: "",
+		text5: "",
 		images: [ngRawJson.value[0].pic],
 		dataSource: {
 			url: "https://www.ngchina.com.cn/",

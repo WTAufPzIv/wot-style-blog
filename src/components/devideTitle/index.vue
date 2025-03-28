@@ -14,8 +14,8 @@ const { isMobile } = useDevice();
 .divide-title-wrapper {
 	width: 100%;
 	margin: 24px 0;
+	padding: 0 12px;
 	span {
-		//font-family: GeTe;
 		font-weight: bold;
 		color: $common-font-color;
 	}
