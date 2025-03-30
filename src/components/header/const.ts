@@ -8,7 +8,7 @@ export const _pageList = [
 		title: "文章"
 	},
 	{
-		path: "/mini-blob",
+		path: "/image-blog",
 		title: "随写"
 	},
 	{

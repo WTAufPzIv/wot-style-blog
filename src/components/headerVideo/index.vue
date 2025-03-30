@@ -1,7 +1,7 @@
 <template>
 	<div :class="['head-video-wrapper', isMobile ? 'mo' : 'pc']">
 		<div class="title">
-			<span class="line1">Cure For Me</span>
+			<span class="line1">CURE FOR ME</span>
 			<!--			<span class="line2">{{ text2 }}</span>-->
 		</div>
 		<div class="video-wrapper">

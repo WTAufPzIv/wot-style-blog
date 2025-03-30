@@ -18,12 +18,13 @@
     align-items: center;
     background: rgba(0, 0, 0, 0.5);
     text-shadow: 2px 2px 7px rgb(205, 205, 205, 0.8);
-    .line1 {
-      font-family: math;
-    }
-    .line2 {
-      font-family: GeTe;
-    }
+    font-weight: bold;
+    //.line1 {
+    //  font-family: math;
+    //}
+    //.line2 {
+    //  font-family: GeTe;
+    //}
   }
 }
 .video-wrapper {
@@ -44,7 +45,7 @@
 
 .pc {
   span {
-    font-size: 2vw;
+    font-size: 3vw;
     color: $common-font-color;
     margin-top: 10px;
     letter-spacing: 10px;
@@ -52,7 +53,7 @@
 }
 .mo {
   span {
-    font-size: 6vw;
+    font-size: 9vw;
     color: $common-font-color;
     margin-top: 10px;
     letter-spacing: 8px;

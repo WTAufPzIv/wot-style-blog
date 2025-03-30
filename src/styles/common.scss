@@ -75,3 +75,23 @@
 .n-image-preview-overlay {
   background: rgba(0,0,0,0.8)
 }
+
+.common-button-default {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 11px 28px;
+  border: 2px solid #f9f5e1;
+  border-radius: 4px;
+  color: #f9f5e1;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: background-color .15s ease-out,color .15s ease-out;
+  cursor: pointer;
+  &:hover {
+    background: #f9f5e1;
+    color: #474747;
+  }
+}
