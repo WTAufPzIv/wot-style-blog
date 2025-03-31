@@ -1,0 +1,116 @@
+.bottom-wrapper {
+  position: relative;
+  width: 100vw;
+  height: 500px;
+  margin-top: 36px;
+  background: $blob-bg;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  .left {
+    width: 25vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 36px;
+    box-sizing: border-box;
+    border-right: solid 1px $common-bg-l2;
+    .title {
+      color: $common-font-color;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      :deep(.n-icon) {
+        color: $org-font-color;
+      }
+      p {
+        font-size: 18px;
+        margin-left: 12px;
+      }
+    }
+    .left-item {
+      width: 100%;
+      border-radius: 12px;
+      background: $common-bg-l2;
+      height: 80px;
+      margin-bottom: 18px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      img {
+        width: 70px;
+        height: 70px;
+      }
+      .left-text {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 12px;
+        p {
+          margin: 0;
+          padding: 0;
+          color: $common-font-color;
+        }
+        .left-itemtitle {
+          font-size: 18px;
+          font-weight: bold;
+          color: $common-font-color;
+        }
+        .left-itemdesc {
+          font-size: 12px;
+          opacity: 0.8;
+          color: $common-font-color;
+          margin-top: 8px;
+        }
+      }
+    }
+  }
+  .center {
+    flex: 1;
+  }
+  .right {
+    width: 25vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: red;
+  }
+}
+
+.bottom-wrapper-col {
+  position: relative;
+  width: 100vw;
+  margin-top: 36px;
+  background: $blob-bg;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .left {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: red;
+  }
+  .center {
+    //flex: 1;
+    height: max-content;
+  }
+  .right {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: red;
+  }
+}
