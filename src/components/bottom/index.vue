@@ -6,28 +6,28 @@
 					<n-icon size="30" :component="Heart" />
 					<p>特别鸣谢</p>
 				</div>
-				<div class="left-item">
+				<div class="left-item" @click="handleOpenUrl('https://www.nasa.gov/')">
 					<img src="@/assets/images/nasalogo.png" alt="" />
 					<div class="left-text">
 						<p class="left-itemtitle">美国国家航天局</p>
 						<p class="left-itemdesc">每日天文图片API数据提供</p>
 					</div>
 				</div>
-				<div class="left-item">
+				<div class="left-item" @click="handleOpenUrl('https://harvardartmuseums.org/')">
 					<img src="@/assets/images/harvardlogo.png" alt="" />
 					<div class="left-text">
 						<p class="left-itemtitle">哈佛大学艺术博物馆</p>
 						<p class="left-itemdesc">馆藏品API数据提供</p>
 					</div>
 				</div>
-				<div class="left-item">
+				<div class="left-item" @click="handleOpenUrl('https://www.ngchina.com.cn/')">
 					<img src="@/assets/images/nglogo.png" alt="" />
 					<div class="left-text">
 						<p class="left-itemtitle">美国国家地理杂志中文网</p>
 						<p class="left-itemdesc">每日图片API数据提供</p>
 					</div>
 				</div>
-				<div class="left-item">
+				<div class="left-item" @click="handleOpenUrl('https://yuanbao.tencent.com/')">
 					<img src="@/assets/images/yunabaologo.jpg" alt="" />
 					<div class="left-text">
 						<p class="left-itemtitle">腾讯元宝智能体</p>
@@ -63,7 +63,7 @@
 							<a href="https://blog.csdn.net/qq_40808344" target="_blank">唐流雨(JiaJun Wu)的博客</a>
 						</div>
 						<div class="right-item">
-							<img src="@/assets/images/link5.jpg" alt="" />
+							<img src="@/assets/images/link5.png" alt="" />
 							<a href="https://wustzhh.github.io/Hugo-stack/" target="_blank">zhh(Han Zhang)的博客</a>
 						</div>
 					</div>
@@ -92,6 +92,10 @@ import { Heart, LogoLinkedin, LogoWechat, Mail, LogoGithub } from "@vicons/ionic
 import useDevice from "@/hook/window";
 
 const { isMobile } = useDevice();
+
+function handleOpenUrl(url: string) {
+	window.open(url, "_blank");
+}
 </script>
 
 <style scoped lang="scss">

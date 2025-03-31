@@ -1,13 +1,14 @@
 <template>
 	<div class="head-card-wrapper">
 		<div class="c-w-100 nasa">
-			<div class="nasa-card c-w-100" @click="handleOpenNasaDetail">
+			<div v-if="nasaText" class="nasa-card c-w-100" @click="handleOpenNasaDetail">
 				<img :src="nasaImage" alt="" />
 				<div class="nasa-card__content">
 					<p>每日NASA{{ nasaTitle }}</p>
 					<span :class="isMobile ? 'mo-desc' : 'pc-desc'">{{ nasaText }}</span>
 				</div>
 			</div>
+			<n-skeleton v-else class="nasa-card c-w-100" />
 		</div>
 		<div class="c-w-100 line2" :isMobile="isMobile">
 			<div class="hm-dailly" @click="handleOpenMuseumsDetail">
