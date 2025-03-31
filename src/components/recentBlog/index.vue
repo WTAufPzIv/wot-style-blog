@@ -32,10 +32,10 @@ const mockarr = new Array<any>(6).fill({
 	time: "2025-01-01",
 	minipre:
 		"这是一堆正文，这是一堆正文，这是一堆正文，这是一堆正文，这是一堆正文，这是一堆正文,这是一堆正文，这是一堆正文，这是一堆正文，这是一堆正文，这是一堆正文，这是一堆正文,这是一堆正文，这是一堆正文，这是一堆正文，这是一堆正文，这是一堆正文，这是一堆正文",
-	desc: "技术/前端"
+	cat: "技术/前端"
 });
 
-function gotoBlogDetail(rows) {}
+function gotoBlogDetail(rows): void {}
 
 function gotoBlogList() {}
 </script>
