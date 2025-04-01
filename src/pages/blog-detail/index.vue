@@ -1,6 +1,6 @@
 <template>
 	<CommonWrapper>
-		<div class="head-bar" :style="{ opacity: headBarOpacity, display: headBarDisplay }">
+		<div class="head-bar">
 			<Header></Header>
 		</div>
 		<MdViewer></MdViewer>

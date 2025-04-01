@@ -5,7 +5,7 @@
 			<!--			<span class="line2">{{ text2 }}</span>-->
 		</div>
 		<div class="video-wrapper">
-			<video loop muted="muted" autoplay="autoplay" playsinline :controls="false">
+			<video loop :muted="true" :autoplay="true" playsinline :controls="false">
 				<source src="@/assets/video/home.mp4" type="video/mp4" />
 			</video>
 		</div>

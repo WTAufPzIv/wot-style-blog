@@ -57,6 +57,8 @@ const currentUrl = ref(imageBlogItem.images[0]);
 function handleClickImage(item: string) {
 	currentUrl.value = item;
 }
+
+function gotoBlogList() {}
 </script>
 
 <style scoped lang="scss">
