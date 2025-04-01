@@ -11,20 +11,22 @@
 			<n-skeleton v-else class="nasa-card c-w-100" />
 		</div>
 		<div class="c-w-100 line2" :isMobile="isMobile">
-			<div class="hm-dailly" @click="handleOpenMuseumsDetail">
+			<div v-if="harRawJson" class="hm-dailly" @click="handleOpenMuseumsDetail">
 				<img :src="harImage" alt="" />
 				<div class="hm-dailly__content">
 					<p>哈佛艺术博物馆</p>
 					<span>每日藏品</span>
 				</div>
 			</div>
-			<div class="hm-dailly" @click="handleOpenNgDetail">
+			<n-skeleton v-else class="hm-dailly" />
+			<div v-if="ngRawJson" class="hm-dailly" @click="handleOpenNgDetail">
 				<img :src="ngImage" alt="" />
 				<div class="hm-dailly__content">
 					<p>美国国家地理杂志</p>
 					<span>每日一图</span>
 				</div>
 			</div>
+			<n-skeleton v-else class="hm-dailly" />
 		</div>
 	</div>
 </template>

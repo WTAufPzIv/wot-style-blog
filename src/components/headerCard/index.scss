@@ -1,11 +1,15 @@
 .head-card-wrapper {
   width: 100%;
+  :deep(.n-skeleton) {
+    height: unset;
+  }
   .nasa {
     display: flex;
     flex-direction: row;
     padding: 12px;
     box-sizing: border-box;
     position: relative;
+
     .nasa-card {
       aspect-ratio: 2/1;
       display: flex;
