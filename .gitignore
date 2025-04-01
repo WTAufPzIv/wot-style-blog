@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 dist
+wot-style-blog-web
 dist-ssr
 *.local
 

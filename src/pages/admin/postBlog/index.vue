@@ -5,7 +5,7 @@
 			<n-button type="primary" size="large" @click="handeStartUnload">上传MarkDowm文件</n-button>
 		</div>
 		<div v-else>
-			<n-form ref="formRef" inline :label-width="80" :model="formValue" :size="size" class="c-w-100 mt30">
+			<n-form ref="formRef" inline :label-width="80" :model="formValue" class="c-w-100 mt30">
 				<n-form-item label="标题" path="title">
 					<n-input v-model:value="formValue.title" placeholder="标题" />
 				</n-form-item>
