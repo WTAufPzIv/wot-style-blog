@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@kangc/v-md-editor": "^2.3.18",
+    "@unhead/vue": "^2.0.2",
     "@vicons/ionicons5": "^0.13.0",
     "@vueuse/core": "^8.0.1",
     "axios": "^1.2.1",

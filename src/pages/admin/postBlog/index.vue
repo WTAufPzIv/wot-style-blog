@@ -1,8 +1,10 @@
 <template>
-	<div>
-		<div v-if="!hasUpload" class="c-w-50 mt30">
-			<input type="file" accept=".md" v-show="false" ref="uploadInputRef" @change="handleFileChange" />
-			<n-button type="primary" size="large" @click="handeStartUnload">上传MarkDowm文件</n-button>
+	<div class="c-w-100">
+		<div v-if="!hasUpload" class="mt30">
+			<n-input-group>
+				<n-input v-model:value="markdownUrl" placeholder="请输入md文件地址" />
+				<n-button type="primary" @click="handleFetchMdContent"> 获取并解析 </n-button>
+			</n-input-group>
 		</div>
 		<div v-else>
 			<n-form ref="formRef" inline :label-width="80" :model="formValue" class="c-w-100 mt30">
@@ -24,7 +26,7 @@
 					<n-button type="primary" @click="handleSubmit">上传</n-button>
 				</n-form-item>
 			</n-form>
-			<MdViewer :text="hasUpload" ref="MdViewerRef"></MdViewer>
+			<MdViewer :text="renderText" ref="MdViewerRef"></MdViewer>
 		</div>
 	</div>
 </template>
@@ -33,10 +35,12 @@
 import { reactive, ref } from "vue";
 import { useMessage } from "naive-ui";
 import MdViewer from "@/components/mdViewer/index.vue";
+import axios from "axios";
 
-const hasUpload = ref("");
-const uploadInputRef = ref();
+const hasUpload = ref(false);
+const markdownUrl = ref("");
 const MdViewerRef = ref();
+const renderText = ref("");
 const message = useMessage();
 const formValue = reactive({
 	title: undefined,
@@ -44,27 +48,19 @@ const formValue = reactive({
 	category: undefined
 });
 
-function handeStartUnload() {
-	uploadInputRef.value.click();
-}
-
-function handleSubmit() {
-	console.log(formValue);
-	console.log(MdViewerRef.value.$el.outerHTML);
-}
-
-function handleFileChange(e) {
-	const file = e.target.files[0];
-	if (!file.name.endsWith(".md")) {
-		message.error("请上传.md文件");
-		return;
+async function handleFetchMdContent() {
+	if (!markdownUrl.value) return;
+	hasUpload.value = true;
+	if (markdownUrl.value.startsWith("http")) {
+		const res = await axios.get(markdownUrl.value);
+		if (typeof res.data === "string") {
+			renderText.value = res.data;
+		} else {
+			message.error("md文件解析失败");
+		}
+	} else {
+		renderText.value = markdownUrl.value;
 	}
-	const reader = new FileReader();
-	reader.onload = res => {
-		hasUpload.value = (res.target?.result as string) || ""; // 存储为字符串
-		console.log(res.target);
-	};
-	reader.readAsText(file); // 以文本格式读取
 }
 </script>
 
