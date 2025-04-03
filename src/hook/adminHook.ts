@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import { checkIsLogin, fetchLogin, fetchLogout } from "@/api/modules/external_InstitutionFiling";
+import { checkIsLogin, fetchLogin, fetchLogout } from "@/api/modules/main";
 import { useRoute, useRouter } from "vue-router";
 
 const username = ref("");

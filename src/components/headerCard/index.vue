@@ -33,11 +33,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import {
-	getDailyHarvardMuseumsDate,
-	getDailyNasaDate,
-	getDailyNationalGeographicDate
-} from "@/api/modules/external_InstitutionFiling";
+import { getDailyHarvardMuseumsDate, getDailyNasaDate, getDailyNationalGeographicDate } from "@/api/modules/main";
 import { isValidJson } from "@/utils/common";
 import { triggerImageDetailHook } from "@/components/imageBlogDetail/trigger";
 import useDevice from "@/hook/window";

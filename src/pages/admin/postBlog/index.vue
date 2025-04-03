@@ -8,10 +8,10 @@
 		</div>
 		<div v-else>
 			<n-form ref="formRef" :model="formValue" class="c-w-100 mt30" label-placement="left" label-width="auto">
-				<n-form-item label="标题" path="title">
+				<n-form-item label="标题" path="title" :rule="[{ required: true, message: '请输入标题' }]">
 					<n-input v-model:value="formValue.title" placeholder="标题" />
 				</n-form-item>
-				<n-form-item label="时间" path="user.age">
+				<n-form-item label="时间" path="createTime" :rule="[{ required: true }]">
 					<n-date-picker
 						class="c-w-100"
 						value-format="yyyy-MM-dd HH:mm:ss"
@@ -21,17 +21,17 @@
 						clearable
 					/>
 				</n-form-item>
-				<n-form-item label="分类" path="category">
+				<n-form-item label="分类" path="category" :rule="[{ required: true, message: '请输入分类' }]">
 					<n-input v-model:value="formValue.category" placeholder="分类" />
 				</n-form-item>
-				<n-form-item label="头图" path="headImage">
+				<n-form-item label="头图" path="headImage" :rule="[{ required: true, message: '请输入头图' }]">
 					<n-input v-model:value="formValue.headImage" placeholder="头图" />
 				</n-form-item>
-				<n-form-item label="简视" path="desc">
-					<n-input v-model:value="formValue.desc" placeholder="简视" />
+				<n-form-item label="简视" path="miniDesc" :rule="[{ required: true, message: '请输入简视' }]">
+					<n-input v-model:value="formValue.miniDesc" placeholder="简视" />
 				</n-form-item>
 				<n-form-item>
-					<n-button type="primary" @click="handleSubmit">提交博客</n-button>
+					<n-button type="primary" @click="handleSubmit" :loading="loading" :disabled="loading">提交博客</n-button>
 				</n-form-item>
 			</n-form>
 			<MdViewer :text="renderText" ref="MdViewerRef"></MdViewer>
@@ -44,18 +44,22 @@ import { reactive, ref } from "vue";
 import { useMessage } from "naive-ui";
 import MdViewer from "@/components/mdViewer/index.vue";
 import axios from "axios";
+import { addBlog } from "@/api/modules/main";
+import { sleep } from "@/utils/common";
 
 const hasUpload = ref(false);
 const markdownUrl = ref("");
 const MdViewerRef = ref();
 const renderText = ref("");
 const message = useMessage();
+const loading = ref(false);
+const formRef = ref();
 const formValue = reactive({
-	title: undefined,
+	title: "",
 	createTime: undefined,
-	category: undefined,
-	headImage: undefined,
-	desc: undefined
+	category: "",
+	headImage: "",
+	miniDesc: ""
 });
 
 async function handleFetchMdContent() {
@@ -71,6 +75,14 @@ async function handleFetchMdContent() {
 	} else {
 		renderText.value = markdownUrl.value;
 	}
+}
+
+async function handleSubmit() {
+	const res = await formRef.value?.validate();
+	await addBlog({ ...formValue, mdUrl: markdownUrl.value } as any);
+	message.success("添加成功");
+	await sleep(1000);
+	location.reload();
 }
 </script>
 
