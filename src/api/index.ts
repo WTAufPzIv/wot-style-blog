@@ -31,6 +31,29 @@ const config = {
 	withCredentials: true
 };
 
+function rsaEncryptObj(obj: any) {
+	// 处理基本类型直接加密
+	if (typeof obj !== "object" || obj === null) {
+		return typeof obj === "string" || typeof obj === "number" ? rsaEncrypt(String(obj), PUBLIC_KEY) : obj;
+	}
+
+	// 处理数组类型
+	if (Array.isArray(obj)) {
+		return obj.map(item => rsaEncryptObj(item));
+	}
+
+	// 处理对象类型
+	const newObj = {};
+	for (const key in obj) {
+		if (obj.hasOwnProperty(key)) {
+			const value = obj[key];
+			// 递归处理每个属性
+			newObj[key] = rsaEncryptObj(value);
+		}
+	}
+	return newObj;
+}
+
 class RequestHttp {
 	service: AxiosInstance;
 	public constructor(config: AxiosRequestConfig) {
@@ -38,7 +61,7 @@ class RequestHttp {
 		this.service = axios.create(config);
 		this.service.interceptors.request.use(
 			(config: any) => {
-				return { ...config, headers: { ...config.headers, "content-type": "text/plain" } };
+				return { ...config, headers: { ...config.headers } };
 			},
 			(error: AxiosError) => {
 				return Promise.reject(error);
@@ -59,7 +82,7 @@ class RequestHttp {
 		return this.service.get(url, { params, ..._object });
 	}
 	post<T>(url: string, params?: any, _object = {}): Promise<CommonVo.ResultData<T>> {
-		const encryptedData = rsaEncrypt(JSON.stringify(params), PUBLIC_KEY);
+		const encryptedData = rsaEncryptObj(params);
 		console.groupCollapsed(
 			`%c Raw Request %c ${url} %c`,
 			"background: #42c09c; border: 1px solid #42c09c; padding: 1px; border-radius: 2px 0 0 2px; color: #fff",
@@ -68,7 +91,6 @@ class RequestHttp {
 		);
 		console.log("加密前: ");
 		console.log(params);
-		console.log(JSON.stringify(params));
 		console.log("加密后: ");
 		console.log(encryptedData);
 		console.groupEnd();

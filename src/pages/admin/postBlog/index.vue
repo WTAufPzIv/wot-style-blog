@@ -7,23 +7,31 @@
 			</n-input-group>
 		</div>
 		<div v-else>
-			<n-form ref="formRef" inline :label-width="80" :model="formValue" class="c-w-100 mt30">
+			<n-form ref="formRef" :model="formValue" class="c-w-100 mt30" label-placement="left" label-width="auto">
 				<n-form-item label="标题" path="title">
 					<n-input v-model:value="formValue.title" placeholder="标题" />
 				</n-form-item>
 				<n-form-item label="时间" path="user.age">
 					<n-date-picker
+						class="c-w-100"
 						value-format="yyyy-MM-dd HH:mm:ss"
 						v-model:formatted-value="formValue.createTime"
 						type="datetime"
+						placeholder="时间"
 						clearable
 					/>
 				</n-form-item>
 				<n-form-item label="分类" path="category">
 					<n-input v-model:value="formValue.category" placeholder="分类" />
 				</n-form-item>
+				<n-form-item label="头图" path="headImage">
+					<n-input v-model:value="formValue.headImage" placeholder="头图" />
+				</n-form-item>
+				<n-form-item label="简视" path="desc">
+					<n-input v-model:value="formValue.desc" placeholder="简视" />
+				</n-form-item>
 				<n-form-item>
-					<n-button type="primary" @click="handleSubmit">上传</n-button>
+					<n-button type="primary" @click="handleSubmit">提交博客</n-button>
 				</n-form-item>
 			</n-form>
 			<MdViewer :text="renderText" ref="MdViewerRef"></MdViewer>
@@ -45,7 +53,9 @@ const message = useMessage();
 const formValue = reactive({
 	title: undefined,
 	createTime: undefined,
-	category: undefined
+	category: undefined,
+	headImage: undefined,
+	desc: undefined
 });
 
 async function handleFetchMdContent() {

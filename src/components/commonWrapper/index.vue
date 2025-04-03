@@ -26,6 +26,7 @@ const props = withDefaults(
 	flex-direction: column;
 	align-items: center;
 	padding-top: 78px;
+	overflow-y: scroll;
 }
 .inner {
 	width: 100%;
