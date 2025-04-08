@@ -4,20 +4,16 @@ export const _pageList = [
 		title: "首页"
 	},
 	{
-		path: "/blob",
+		path: "/blogList",
 		title: "文章"
 	},
 	{
-		path: "/image-blog",
-		title: "随写"
+		path: "/imageBlog",
+		title: "图库"
 	},
 	{
 		path: "/note",
-		title: "图记"
-	},
-	{
-		path: "/assorted",
-		title: "什锦"
+		title: "随记"
 	},
 	{
 		path: "/about",

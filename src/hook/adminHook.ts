@@ -22,9 +22,16 @@ export const useAdminHook = () => {
 	async function handleCheck() {
 		try {
 			const res = await checkIsLogin();
-			route.path.includes("login") && router.push("/admin");
-			username.value = res.data!.username;
-			return res.data;
+			if (res.data) {
+				route.path.includes("login") && router.push("/admin");
+				username.value = res.data!.username;
+				return res.data;
+			} else {
+				if (route.path.includes("admin")) {
+					router.push("/login");
+				}
+				return null;
+			}
 		} catch {
 			if (route.path.includes("admin")) {
 				router.push("/login");

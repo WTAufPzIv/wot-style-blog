@@ -10,6 +10,7 @@ export const useHomePageRenderHook = () => {
 
 	function handleSectionChange(oldPage: any, newPage: any) {
 		if (hasModalOpen.value) return false;
+		console.log(oldPage, newPage);
 		if (oldPage.index === 0 && newPage.index === 1) {
 			screenOneOpacity.value = 0;
 			screenTwoOpacity.value = 1;

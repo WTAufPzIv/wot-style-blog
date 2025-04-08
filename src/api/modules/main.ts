@@ -1,4 +1,5 @@
 import http from "@/api";
+import { CommonVo, ReqPage } from "@/api/interface";
 
 const PORT1 = "/api";
 
@@ -24,6 +25,28 @@ export const getDailyHarvardMuseumsDate = () => {
 
 export const getDailyNationalGeographicDate = () => {
 	return http.post(PORT1 + `/auroraWeb/getNationalGeographicDailly`);
+};
+
+export const getBlogList = (params: { keyword?: string; createTime?: string; category?: string } & CommonVo.ReqPage) => {
+	return http.post<
+		CommonVo.ResPage<{
+			title: string;
+			category: string;
+			createTime: string;
+			headImage: string;
+			desc: string;
+			mdUrl: string;
+		}>
+	>(PORT1 + `/auroraWeb/blog/list`, params);
+};
+
+export const getAllCategory = () => {
+	return http.post<
+		{
+			category: string;
+			count: number;
+		}[]
+	>(PORT1 + "/auroraWeb/blog/category/all");
 };
 
 export const addBlog = (params: {

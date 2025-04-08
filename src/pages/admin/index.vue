@@ -42,7 +42,7 @@ onMounted(async () => {
 	align-items: center;
 }
 img {
-	margin-top: -40px;
+	margin-top: 40px;
 }
 .mo-header {
 	width: 50vw;

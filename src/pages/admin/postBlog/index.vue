@@ -48,7 +48,7 @@ import { addBlog } from "@/api/modules/main";
 import { sleep } from "@/utils/common";
 
 const hasUpload = ref(false);
-const markdownUrl = ref("");
+const markdownUrl = ref("https://obj261.asia/wot-style-blog/mds/test.md");
 const MdViewerRef = ref();
 const renderText = ref("");
 const message = useMessage();
@@ -58,7 +58,7 @@ const formValue = reactive({
 	title: "",
 	createTime: undefined,
 	category: "",
-	headImage: "",
+	headImage: "https://obj261.asia/wot-style-blog/images/JustForTest.jpg",
 	miniDesc: ""
 });
 

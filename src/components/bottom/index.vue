@@ -69,6 +69,10 @@
 					</div>
 					<div class="right-bottom-list">
 						<div class="title">
+							<n-icon size="30" :component="Qq" />
+							<p>2459917510</p>
+						</div>
+						<div class="title">
 							<n-icon size="30" :component="LogoWechat" />
 							<p>xh2459917510</p>
 						</div>
@@ -89,6 +93,7 @@
 
 <script setup lang="ts">
 import { Heart, LogoLinkedin, LogoWechat, Mail, LogoGithub } from "@vicons/ionicons5";
+import { Qq } from "@vicons/fa";
 import useDevice from "@/hook/window";
 
 const { isMobile } = useDevice();

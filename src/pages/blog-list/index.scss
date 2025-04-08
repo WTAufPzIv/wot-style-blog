@@ -1,0 +1,12 @@
+.main-content {
+  width: 100%;
+  .blog-list-wrapper {
+    width: 100%;
+  }
+}
+.empty-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}

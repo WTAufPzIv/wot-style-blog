@@ -1,5 +1,8 @@
 <template>
 	<div class="outter">
+		<div class="head-bar">
+			<Header></Header>
+		</div>
 		<div class="inner" :style="{ alignItems: align }">
 			<slot name="default"></slot>
 		</div>
@@ -7,9 +10,11 @@
 </template>
 
 <script setup lang="ts">
+import Header from "@/components/header/index.vue";
+
 const props = withDefaults(
 	defineProps<{
-		align: "flex-start" | "center" | "flex-end";
+		align?: "flex-start" | "center" | "flex-end";
 	}>(),
 	{
 		align: "flex-start"
@@ -26,6 +31,8 @@ const props = withDefaults(
 	flex-direction: column;
 	align-items: center;
 	padding-top: 78px;
+	box-sizing: border-box;
+	overflow-x: hidden;
 	overflow-y: scroll;
 }
 .inner {

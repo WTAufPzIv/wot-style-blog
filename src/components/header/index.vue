@@ -5,7 +5,9 @@
 			<div class="tab-wrapper" v-if="!isMobile">
 				<ul>
 					<li v-for="item in _pageList" :key="item.path">
-						<span>{{ item.title }}</span>
+						<router-link :to="item.path"
+							><span>{{ item.title }}</span></router-link
+						>
 					</li>
 				</ul>
 			</div>

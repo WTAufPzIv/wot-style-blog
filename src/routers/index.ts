@@ -1,17 +1,11 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
-// 路由组件懒加载（推荐）
-const Home = () => import("@/pages/index.vue");
-const Login = () => import("@/pages/admin/login.vue");
-const Admin = () => import("@/pages/admin/index.vue");
-const blogDetail = () => import("@/pages/blog-detail/index.vue");
-
 // 基础路由配置
 const routes = [
 	{
 		path: "/",
 		name: "Home",
-		component: Home,
+		component: () => import("@/pages/index.vue"),
 		meta: {
 			title: "首页"
 		}
@@ -19,17 +13,34 @@ const routes = [
 	{
 		path: "/login",
 		name: "Login",
-		component: Login
+		component: () => import("@/pages/admin/login.vue"),
+		meta: {
+			title: "登录"
+		}
 	},
 	{
 		path: "/admin",
 		name: "Admin",
-		component: Admin
+		component: () => import("@/pages/admin/index.vue"),
+		meta: {
+			title: "管理"
+		}
+	},
+	{
+		path: "/blogList",
+		name: "blogList",
+		component: () => import("@/pages/blog-list/index.vue"),
+		meta: {
+			title: "所有文章"
+		}
 	},
 	{
 		path: "/blogDetail",
 		name: "blogDetail",
-		component: blogDetail
+		component: () => import("@/pages/blog-detail/index.vue"),
+		meta: {
+			title: "查看文章"
+		}
 	}
 ];
 

@@ -51,6 +51,7 @@
     p {
       margin-left: 24px;
       display: flex;
+      flex: 1;
       flex-direction: column;
       color: $common-font-color;
       &[isMobile="true"] {
@@ -81,6 +82,10 @@
         opacity: 0.6;
       }
     }
+    .operator-btn {
+      display: flex;
+      flex-direction: column;
+    }
   }
   .mini-pre {
     position: absolute;
@@ -89,18 +94,17 @@
     bottom: 0;
     left: 0;
     background: $common-bg-l2;
-    padding: 30% 18px 18px 18px;
+    padding: 25% 18px 18px 18px;
     box-sizing: border-box;
     .mini-content {
       color: $common-font-color;
       margin: 0;
-      //background: red;
-      //height: 100%;
       overflow: hidden;
       line-height: 1.8;
+      font-size: clamp(12px, 0.8vw, 16px);
       text-overflow: ellipsis;
       display: -webkit-box;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
     }
   }

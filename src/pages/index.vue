@@ -22,14 +22,17 @@ import HomeScreenOne from "@/components/homeScreenOne/index.vue";
 import HomeScreenTwo from "@/components/homeScreenTwo/index.vue";
 import Header from "@/components/header/index.vue";
 import { onMounted } from "vue";
+import { onBeforeRouteLeave } from "vue-router";
+
+let fpInstance: any = null;
 
 const { headBarOpacity, headBarDisplay, screenOneOpacity, screenTwoOpacity, handleSectionChange } = useHomePageRenderHook();
 
-onMounted(async () => {
+async function initFullScreen() {
 	const fullpageModule = await import("fullpage.js");
 	const fullpage = fullpageModule?.default;
 	if (fullpage) {
-		new fullpage("#fullpage", {
+		fpInstance = new fullpage("#fullpage", {
 			autoScrolling: true,
 			scrollingSpeed: 1000,
 			touchSensitivity: 10,
@@ -39,6 +42,15 @@ onMounted(async () => {
 			beforeLeave: handleSectionChange
 		});
 	}
+}
+onMounted(() => {
+	initFullScreen();
+});
+// 监听通过浏览器返回按钮进入当前页面
+onBeforeRouteLeave(async () => {
+	fpInstance.destroy("all");
+	fpInstance = null;
+	console.log(6666666666);
 });
 </script>
 

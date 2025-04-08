@@ -17,8 +17,6 @@
 import useDevice from "@/hook/window";
 import { ref } from "vue";
 
-const text1 = ref("RUNAWAY");
-const text2 = ref("十年一梦 向光而行");
 const { isMobile } = useDevice();
 </script>
 

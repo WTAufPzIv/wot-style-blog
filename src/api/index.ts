@@ -82,25 +82,10 @@ class RequestHttp {
 		return this.service.get(url, { params, ..._object });
 	}
 	post<T>(url: string, params?: any, _object = {}): Promise<CommonVo.ResultData<T>> {
-		const encryptedData = rsaEncryptObj(params);
-		console.groupCollapsed(
-			`%c Raw Request %c ${url} %c`,
-			"background: #42c09c; border: 1px solid #42c09c; padding: 1px; border-radius: 2px 0 0 2px; color: #fff",
-			"border: 1px solid #42c09c; padding: 1px; border-radius: 0 2px 2px 0; color: #42c09c",
-			"background: transparent"
-		);
-		console.log("加密前: ");
-		console.log(params);
-		console.log("加密后: ");
-		console.log(encryptedData);
-		console.groupEnd();
-		return this.service.post(url, encryptedData, _object);
+		return this.service.post(url, params, _object);
 	}
 	put<T>(url: string, params?: any, _object = {}): Promise<CommonVo.ResultData<T>> {
 		return this.service.put(url, params, _object);
-	}
-	delete<T>(url: string, params?: any, _object = {}): Promise<CommonVo.ResultData<T>> {
-		return this.service.delete(url, { params, ..._object });
 	}
 	handleError(error: AxiosError) {
 		const { response } = error;
