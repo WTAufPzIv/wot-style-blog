@@ -10,7 +10,7 @@
 							<span class="time">{{ item.createTime }}</span>
 						</p>
 						<div class="operator-btn" v-if="isAdmin && !isMobile">
-							<n-button quaternary type="primary">编辑</n-button>
+							<n-button quaternary type="primary" @click="() => handleEditItem(item)">编辑</n-button>
 							<n-button quaternary type="error">删除</n-button>
 						</div>
 					</div>
@@ -29,9 +29,11 @@
 <script setup lang="ts">
 import useDevice from "@/hook/window";
 import { useRouter } from "vue-router";
+import { triggerBlogEditDialogHook } from "@/components/blogList/editDialog/trigger";
 
 const { isMobile } = useDevice();
 const router = useRouter();
+const { openEditBlogDialog } = triggerBlogEditDialogHook();
 const props = withDefaults(
 	defineProps<{
 		arrPayload: {
@@ -62,6 +64,9 @@ function gotoBlogDetail(item) {
 	});
 }
 
+function handleEditItem(item) {
+	openEditBlogDialog({ ...item });
+}
 function gotoBlogList() {
 	router.push({
 		path: "/blogList"
