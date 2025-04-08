@@ -9,9 +9,11 @@
 				codeTheme="github"
 				:codeFoldable="false"
 				:modelValue="text"
+				:scrollElement="scrollElement"
+				:mdHeadingId="mdHeadingId"
 			/>
 			<div class="cat-wrapper">
-				<MdCatalog class="mt14" :scrollElement="scrollElement" theme="dark" :editorId="mdId" />
+				<MdCatalog class="mt14" :scrollElement="scrollElement" theme="dark" :editor-id="mdId" :mdHeadingId="mdHeadingId" />
 			</div>
 		</template>
 		<template v-else>
@@ -22,7 +24,7 @@
 
 <script setup lang="ts">
 import { MdCatalog, MdPreview } from "md-editor-v3";
-import { nextTick, ref, watch } from "vue";
+import { nextTick, onMounted, ref, watch } from "vue";
 import BlogDetailSkeleton from "@/components/skeleton/blogDetailSkeleton.vue";
 
 const props = withDefaults(
@@ -34,10 +36,11 @@ const props = withDefaults(
 	}
 );
 
-const scrollElement = document.documentElement;
+const scrollElement = ref();
 const MdPreviewRef = ref();
 const mdViewerWrapper = ref();
-const mdId = ref("blog-detail-viewer");
+const mdId = "blog-detail-viewer";
+const mdHeadingId = (_text, level, index) => `heading-${level}-${index}`;
 
 watch(
 	() => props.text,
@@ -55,6 +58,10 @@ watch(
 		immediate: true
 	}
 );
+
+onMounted(() => {
+	scrollElement.value = document.querySelector("#common-wrapper-outter");
+});
 </script>
 
 <style scoped lang="scss">

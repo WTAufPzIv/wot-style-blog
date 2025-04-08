@@ -1,5 +1,5 @@
 <template>
-	<div class="outter">
+	<div class="outter" id="common-wrapper-outter">
 		<div class="head-bar">
 			<Header></Header>
 		</div>
