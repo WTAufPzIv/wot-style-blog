@@ -1,5 +1,5 @@
 <template>
-	<div class="recent-wrapper">
+	<div class="recent-wrapper" v-if="imageBlogItem">
 		<div class="recent-imager-wrapper" :isMobile="isMobile">
 			<div class="recent-imager-container">
 				<transition appear mode="out-in" name="fade-transform">

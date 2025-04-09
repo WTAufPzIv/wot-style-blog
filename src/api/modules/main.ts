@@ -88,11 +88,11 @@ export const editPhotograph = (params: { id: string; title: string; createTime: 
 	return http.post(PORT1 + `/auroraWeb/photograph/put`, params);
 };
 
-export const detelePhotograph = (params: { id: string }) => {
+export const detelePhotograph = (params: { id: number }) => {
 	return http.post(PORT1 + `/auroraWeb/photograph/delete`, params);
 };
 
-export const getPhotographDetail = (params: { id: string }) => {
+export const getPhotographDetail = (params: { id: number }) => {
 	return http.post<{
 		id: string;
 		title: string;

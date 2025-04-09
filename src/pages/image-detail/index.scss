@@ -1,0 +1,35 @@
+.image-main-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  .title {
+    color: $common-font-color;
+    font-size: clamp(20px, 2.4vw, 32px);
+    margin: 14px 0;
+  }
+  .time {
+    color: $common-font-color;
+    font-size: clamp(14px, 2.4vw, 20px);
+    margin: 14px 0;
+  }
+  .content-box {
+    color: $common-font-color;
+    font-size: clamp(14px, 2.4vw, 20px);
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    background: $common-bg-l2;
+    line-height: 1.6;
+  }
+  .image-box {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 12px 0;
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}

@@ -1,7 +1,16 @@
 <template>
 	<common-wrapper>
 		<IamgeBlogDetailSkeleton v-if="loading" class="pt20"></IamgeBlogDetailSkeleton>
-		<div v-else></div>
+		<div v-else class="image-main-wrapper">
+			<p class="title">{{ imageInfo?.title }}</p>
+			<p class="time">{{ imageInfo?.createTime }}</p>
+			<div class="content-box">
+				<p>{{ imageInfo?.content }}</p>
+			</div>
+			<div class="image-box" v-for="item in imageInfo?.images || []" :key="item">
+				<img :src="item" alt="" />
+			</div>
+		</div>
 	</common-wrapper>
 </template>
 
@@ -14,11 +23,13 @@ import IamgeBlogDetailSkeleton from "@/components/skeleton/imageDetail.vue";
 
 const loading = ref(false);
 const route = useRoute();
+const imageInfo = ref();
 
 async function fetchImageDetail() {
 	loading.value = true;
 	if (!route.query.imageId) return;
-	const res: any = await getPhotographDetail({ id: route.query.imageId as string });
+	const res: any = await getPhotographDetail({ id: Number(route.query.imageId as string) });
+	imageInfo.value = res.data;
 	loading.value = false;
 }
 
@@ -27,4 +38,6 @@ onMounted(() => {
 });
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+@import "./index.scss";
+</style>

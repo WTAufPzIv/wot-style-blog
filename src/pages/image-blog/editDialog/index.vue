@@ -1,9 +1,6 @@
 <template>
 	<div class="c-w-100">
 		<n-form ref="formRef" :model="formValue" class="c-w-100 mt30" label-placement="left" label-width="auto">
-			<n-form-item label="ID" path="id">
-				<n-input v-model:value="formValue.id" placeholder="id" disabled />
-			</n-form-item>
 			<n-form-item label="标题" path="title" :rule="[{ required: true, message: '请输入标题' }]">
 				<n-input v-model:value="formValue.title" placeholder="标题" />
 			</n-form-item>
@@ -17,17 +14,11 @@
 					clearable
 				/>
 			</n-form-item>
-			<n-form-item label="分类" path="category" :rule="[{ required: true, message: '请输入分类' }]">
-				<n-input v-model:value="formValue.category" placeholder="分类" />
+			<n-form-item label="正文" path="content" :rule="[{ required: true, message: '请输入正文' }]">
+				<n-input type="textarea" v-model:value="formValue.content" placeholder="正文" />
 			</n-form-item>
-			<n-form-item label="文档地址" path="mdUrl" :rule="[{ required: true, message: '请输入文档地址' }]">
-				<n-input v-model:value="formValue.mdUrl" placeholder="文档地址" />
-			</n-form-item>
-			<n-form-item label="头图" path="headImage" :rule="[{ required: true, message: '请输入头图' }]">
-				<n-input v-model:value="formValue.headImage" placeholder="头图" />
-			</n-form-item>
-			<n-form-item label="简视" path="miniDesc" :rule="[{ required: true, message: '请输入简视' }]">
-				<n-input type="textarea" v-model:value="formValue.miniDesc" placeholder="简视" />
+			<n-form-item label="图片" path="images" :rule="[{ required: true, message: '请输入图片' }]">
+				<n-dynamic-input v-model:value="formValue.images" show-sort-button placeholder="请输入图片" />
 			</n-form-item>
 		</n-form>
 		<div class="c-w-100 mt10 bottom-wrapper">
@@ -39,18 +30,15 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from "vue";
 import { sleep } from "@/utils/common";
-import { editBlog } from "@/api/modules/main";
-import { useMessage } from "naive-ui";
+import { editBlog, editPhotograph } from "@/api/modules/main";
 
 const props = withDefaults(
 	defineProps<{
 		id: string;
 		title: string;
 		createTime: any;
-		category: string;
-		headImage: string;
-		miniDesc: string;
-		mdUrl: string;
+		content: string;
+		images: any;
 	}>(),
 	{}
 );
@@ -59,10 +47,8 @@ const formValue = reactive({
 	id: "",
 	title: "",
 	createTime: undefined,
-	category: "",
-	headImage: "",
-	miniDesc: "",
-	mdUrl: ""
+	content: "",
+	images: []
 });
 
 const loading = ref(false);
@@ -70,7 +56,7 @@ const formRef = ref();
 
 async function handleSubmit() {
 	await formRef.value?.validate();
-	await editBlog({ ...formValue } as any);
+	await editPhotograph({ ...formValue } as any);
 	await sleep(1000);
 	location.reload();
 }
@@ -79,10 +65,8 @@ onMounted(() => {
 	formValue.id = props.id;
 	formValue.title = props.title;
 	formValue.createTime = props.createTime;
-	formValue.category = props.category;
-	formValue.headImage = props.headImage;
-	formValue.miniDesc = props.miniDesc;
-	formValue.mdUrl = props.mdUrl;
+	formValue.content = props.content;
+	formValue.images = props.images;
 });
 </script>
 
