@@ -1,0 +1,74 @@
+.image-list-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  position: relative;
+  flex-wrap: wrap;
+  .image-item-wrapper {
+    padding: 12px;
+    box-sizing: border-box;
+    &[isMobile="true"] {
+      width: 100%;
+      .image-inner {
+        aspect-ratio: 2/1;
+      }
+    }
+    &[isMobile="false"] {
+      width: 25%;
+      .image-inner {
+        aspect-ratio: 1/1.5;
+      }
+    }
+    .image-inner {
+      width: 100%;
+      aspect-ratio: 1/1.5;
+      background: $common-bg-l2;
+      border-radius: 12px;
+      cursor: pointer;
+      overflow: hidden;
+      position: relative;
+      img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.8;
+      }
+      .image-content {
+        position: absolute;
+        width: 100%;
+        padding: 12px;
+        box-sizing: border-box;
+        z-index: 1;
+        bottom: 0;
+        .title {
+          color: $common-font-color;
+          font-size: clamp(20px, 2vw, 24px);
+          margin-bottom: 12px;
+          font-weight: bold;
+        }
+        .content {
+          color: $common-font-color;
+          font-size: clamp(12px, 1vw, 16px);
+          height: 0;
+          overflow: hidden;
+          will-change: height;
+          transition: height 0.3s;
+          display: -webkit-box;
+          text-overflow: ellipsis;
+          -webkit-line-clamp: 4;
+          -webkit-box-orient: vertical;
+        }
+      }
+      &:hover {
+        .image-content {
+          .content {
+            height: 85px;
+          }
+        }
+      }
+    }
+  }
+}

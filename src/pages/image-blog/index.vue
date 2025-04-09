@@ -1,5 +1,49 @@
-<template></template>
+<template>
+	<CommonWrapper align="center">
+		<div class="image-list-wrapper">
+			<div class="image-item-wrapper" :isMobile="isMobile" v-for="item in imageBlogArr" :key="item.title">
+				<div class="image-inner" @click="handleGotoDetail">
+					<img :src="item.images[0]" alt="" />
+					<div class="image-content">
+						<div class="title">{{ item.title }}</div>
+						<div class="content" v-if="!isMobile">{{ item.content }}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</CommonWrapper>
+</template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import CommonWrapper from "@/components/commonWrapper/index.vue";
+import { onMounted, ref } from "vue";
+import { getPhotographlist } from "@/api/modules/main";
+import useDevice from "@/hook/window";
+import { useRouter } from "vue-router";
 
-<style scoped lang="scss"></style>
+const imageBlogArr = ref<any[]>();
+const { isMobile } = useDevice();
+const router = useRouter();
+
+async function fetchRecentIamge() {
+	const res: any = await getPhotographlist();
+	imageBlogArr.value = res.data;
+}
+
+function handleGotoDetail(item) {
+	router.push({
+		path: "/imageDetail",
+		query: {
+			imageId: item.id
+		}
+	});
+}
+
+onMounted(() => {
+	fetchRecentIamge();
+});
+</script>
+
+<style scoped lang="scss">
+@import "./index.scss";
+</style>

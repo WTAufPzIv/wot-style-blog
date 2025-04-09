@@ -41,6 +41,22 @@ const routes = [
 		meta: {
 			title: "查看文章"
 		}
+	},
+	{
+		path: "/imageBlog",
+		name: "imageBlog",
+		component: () => import("@/pages/image-blog/index.vue"),
+		meta: {
+			title: "所有图片"
+		}
+	},
+	{
+		path: "/imageDetail",
+		name: "imageDetail",
+		component: () => import("@/pages/image-detail/index.vue"),
+		meta: {
+			title: "图片详情"
+		}
 	}
 ];
 

@@ -75,3 +75,29 @@ export const editBlog = (params: {
 export const deteleBlog = (params: { id: string }) => {
 	return http.post(PORT1 + `/auroraWeb/blog/delete`, params);
 };
+
+export const getPhotographlist = () => {
+	return http.post(PORT1 + "/auroraWeb/photograph/list");
+};
+
+export const addPhotograph = (params: { title: string; createTime: string; content: string; images: string[] }) => {
+	return http.post(PORT1 + `/auroraWeb/photograph/add`, params);
+};
+
+export const editPhotograph = (params: { id: string; title: string; createTime: string; content: string; images: string[] }) => {
+	return http.post(PORT1 + `/auroraWeb/photograph/put`, params);
+};
+
+export const detelePhotograph = (params: { id: string }) => {
+	return http.post(PORT1 + `/auroraWeb/photograph/delete`, params);
+};
+
+export const getPhotographDetail = (params: { id: string }) => {
+	return http.post<{
+		id: string;
+		title: string;
+		createTime: string;
+		content: string;
+		images: string[];
+	}>(PORT1 + `/auroraWeb/photograph/detail`, params);
+};

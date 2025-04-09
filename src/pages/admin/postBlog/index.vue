@@ -28,7 +28,7 @@
 					<n-input v-model:value="formValue.headImage" placeholder="头图" />
 				</n-form-item>
 				<n-form-item label="简视" path="miniDesc" :rule="[{ required: true, message: '请输入简视' }]">
-					<n-input v-model:value="formValue.miniDesc" placeholder="简视" />
+					<n-input type="textarea" v-model:value="formValue.miniDesc" placeholder="简视" />
 				</n-form-item>
 				<n-form-item>
 					<n-button type="primary" @click="handleSubmit" :loading="loading" :disabled="loading">提交博客</n-button>
