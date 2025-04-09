@@ -1,9 +1,6 @@
 <template>
 	<div :class="['head-video-wrapper', isMobile ? 'mo' : 'pc']">
-		<div class="title">
-			<span class="line1">CURE FOR ME</span>
-			<!--			<span class="line2">{{ text2 }}</span>-->
-		</div>
+		<div class="title"></div>
 		<div class="video-wrapper">
 			<video loop :muted="true" :autoplay="true" playsinline :controls="false">
 				<source src="@/assets/video/home.mp4" type="video/mp4" />

@@ -59,3 +59,19 @@ export const addBlog = (params: {
 }) => {
 	return http.post(PORT1 + `/auroraWeb/blog/add`, params);
 };
+
+export const editBlog = (params: {
+	id: string;
+	title: string;
+	category: string;
+	createTime: string;
+	headImage: string;
+	desc: string;
+	mdUrl: string;
+}) => {
+	return http.post(PORT1 + `/auroraWeb/blog/put`, params);
+};
+
+export const deteleBlog = (params: { id: string }) => {
+	return http.post(PORT1 + `/auroraWeb/blog/delete`, params);
+};

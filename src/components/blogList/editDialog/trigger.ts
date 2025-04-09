@@ -19,7 +19,7 @@ export const triggerBlogEditDialogHook = () => {
 		setHasModalOpen(true);
 		dialog.create({
 			icon: () => null,
-			title: () => "",
+			title: () => "编辑文章",
 			style: {
 				width: "50vw",
 				marginTop: "2.5vh",

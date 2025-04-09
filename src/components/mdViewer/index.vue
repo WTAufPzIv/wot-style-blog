@@ -12,7 +12,7 @@
 				:scrollElement="scrollElement"
 				:mdHeadingId="mdHeadingId"
 			/>
-			<div class="cat-wrapper">
+			<div class="cat-wrapper" v-if="!isMobile">
 				<MdCatalog class="mt14" :scrollElement="scrollElement" theme="dark" :editor-id="mdId" :mdHeadingId="mdHeadingId" />
 			</div>
 		</template>
@@ -26,6 +26,7 @@
 import { MdCatalog, MdPreview } from "md-editor-v3";
 import { nextTick, onMounted, ref, watch } from "vue";
 import BlogDetailSkeleton from "@/components/skeleton/blogDetailSkeleton.vue";
+import useDevice from "@/hook/window";
 
 const props = withDefaults(
 	defineProps<{
@@ -39,6 +40,7 @@ const props = withDefaults(
 const scrollElement = ref();
 const MdPreviewRef = ref();
 const mdViewerWrapper = ref();
+const { isMobile } = useDevice();
 const mdId = "blog-detail-viewer";
 const mdHeadingId = (_text, level, index) => `heading-${level}-${index}`;
 

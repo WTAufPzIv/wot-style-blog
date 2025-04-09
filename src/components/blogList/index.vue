@@ -11,7 +11,7 @@
 						</p>
 						<div class="operator-btn" v-if="isAdmin && !isMobile">
 							<n-button quaternary type="primary" @click="() => handleEditItem(item)">编辑</n-button>
-							<n-button quaternary type="error">删除</n-button>
+							<n-button quaternary type="error" @click="() => handleDeleteItem(item)">删除</n-button>
 						</div>
 					</div>
 					<div class="mini-pre">
@@ -30,6 +30,8 @@
 import useDevice from "@/hook/window";
 import { useRouter } from "vue-router";
 import { triggerBlogEditDialogHook } from "@/components/blogList/editDialog/trigger";
+import { deteleBlog, editBlog } from "@/api/modules/main";
+import { sleep } from "@/utils/common";
 
 const { isMobile } = useDevice();
 const router = useRouter();
@@ -67,6 +69,13 @@ function gotoBlogDetail(item) {
 function handleEditItem(item) {
 	openEditBlogDialog({ ...item });
 }
+
+async function handleDeleteItem(item) {
+	await deteleBlog({ id: item.id });
+	await sleep(1000);
+	location.reload();
+}
+
 function gotoBlogList() {
 	router.push({
 		path: "/blogList"

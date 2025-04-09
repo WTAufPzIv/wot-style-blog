@@ -29,15 +29,18 @@
 			<n-form-item label="简视" path="miniDesc" :rule="[{ required: true, message: '请输入简视' }]">
 				<n-input v-model:value="formValue.miniDesc" placeholder="简视" />
 			</n-form-item>
-			<n-form-item>
-				<n-button type="primary" @click="handleSubmit" :loading="loading" :disabled="loading">提交修改</n-button>
-			</n-form-item>
 		</n-form>
+		<div class="c-w-100 mt10 bottom-wrapper">
+			<n-button type="primary" @click="handleSubmit" :loading="loading" :disabled="loading">提交修改</n-button>
+		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, reactive, ref } from "vue";
+import { sleep } from "@/utils/common";
+import { editBlog } from "@/api/modules/main";
+import { useMessage } from "naive-ui";
 
 const props = withDefaults(
 	defineProps<{
@@ -63,13 +66,13 @@ const formValue = reactive({
 });
 
 const loading = ref(false);
+const formRef = ref();
 
 async function handleSubmit() {
-	// const res = await formRef.value?.validate();
-	// await addBlog({ ...formValue, mdUrl: markdownUrl.value } as any);
-	// message.success("添加成功");
-	// await sleep(1000);
-	// location.reload();
+	await formRef.value?.validate();
+	await editBlog({ ...formValue } as any);
+	await sleep(1000);
+	location.reload();
 }
 
 onMounted(() => {
@@ -83,4 +86,11 @@ onMounted(() => {
 });
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.bottom-wrapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+</style>
