@@ -57,6 +57,14 @@ const routes = [
 		meta: {
 			title: "图片详情"
 		}
+	},
+	{
+		path: "/note",
+		name: "note",
+		component: () => import("@/pages/note/index.vue"),
+		meta: {
+			title: "随记"
+		}
 	}
 ];
 

@@ -8,7 +8,7 @@
 						<div class="title">{{ item.title }}</div>
 						<div class="content" v-if="!isMobile">{{ item.content }}</div>
 					</div>
-					<div class="btn-group">
+					<div class="btn-group" v-if="!!admin && !isMobile">
 						<n-button quaternary type="primary" @click.stop="() => handleEditItem(item)">编辑</n-button>
 						<n-button quaternary type="error" @click.passive="() => handleDeleteItem(item)">删除</n-button>
 					</div>
@@ -21,16 +21,19 @@
 <script setup lang="ts">
 import CommonWrapper from "@/components/commonWrapper/index.vue";
 import { onMounted, ref } from "vue";
-import { deteleBlog, detelePhotograph, getPhotographlist } from "@/api/modules/main";
+import { detelePhotograph, getPhotographlist } from "@/api/modules/main";
 import useDevice from "@/hook/window";
 import { useRouter } from "vue-router";
 import { sleep } from "@/utils/common";
 import { triggerImageEditDialogHook } from "@/pages/image-blog/editDialog/trigger";
+import { useAdminHook } from "@/hook/adminHook";
 
 const imageBlogArr = ref<any[]>();
 const { isMobile } = useDevice();
 const router = useRouter();
 const { openEditImageDialog } = triggerImageEditDialogHook();
+const admin = ref();
+const { handleCheck } = useAdminHook();
 
 async function fetchRecentIamge() {
 	const res: any = await getPhotographlist();
@@ -56,8 +59,10 @@ function handleGotoDetail(item) {
 	});
 }
 
-onMounted(() => {
+onMounted(async () => {
 	fetchRecentIamge();
+	const res = await handleCheck();
+	admin.value = res;
 });
 </script>
 

@@ -4,9 +4,6 @@
 			<n-form-item label="ID" path="id">
 				<n-input disabled v-model:value="formValue.id" placeholder="ID" />
 			</n-form-item>
-			<n-form-item label="标题" path="title" :rule="[{ required: true, message: '请输入标题' }]">
-				<n-input v-model:value="formValue.title" placeholder="标题" />
-			</n-form-item>
 			<n-form-item label="时间" path="createTime" :rule="[{ required: true }]">
 				<n-date-picker
 					class="c-w-100"
@@ -33,12 +30,11 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from "vue";
 import { sleep } from "@/utils/common";
-import { editPhotograph } from "@/api/modules/main";
+import { editNote } from "@/api/modules/main";
 
 const props = withDefaults(
 	defineProps<{
 		id: string;
-		title: string;
 		createTime: any;
 		content: string;
 		images: any;
@@ -48,7 +44,6 @@ const props = withDefaults(
 
 const formValue = reactive({
 	id: "",
-	title: "",
 	createTime: undefined,
 	content: "",
 	images: []
@@ -59,14 +54,13 @@ const formRef = ref();
 
 async function handleSubmit() {
 	await formRef.value?.validate();
-	await editPhotograph({ ...formValue } as any);
+	await editNote({ ...formValue } as any);
 	await sleep(1000);
 	location.reload();
 }
 
 onMounted(() => {
 	formValue.id = props.id;
-	formValue.title = props.title;
 	formValue.createTime = props.createTime;
 	formValue.content = props.content;
 	formValue.images = props.images;

@@ -101,3 +101,32 @@ export const getPhotographDetail = (params: { id: number }) => {
 		images: string[];
 	}>(PORT1 + `/auroraWeb/photograph/detail`, params);
 };
+
+export const getNoteList = (params: { createTime: string }) => {
+	return http.post<any[]>(PORT1 + "/auroraWeb/note/list", params);
+};
+
+export const addNote = (params: { content: string; createTime: string; images: string }) => {
+	return http.post(PORT1 + `/auroraWeb/note/add`, params);
+};
+
+export const editNote = (params: { id: string; content: string; createTime: string; images: string }) => {
+	return http.post(PORT1 + `/auroraWeb/note/put`, params);
+};
+
+export const deteleNote = (params: { id: number }) => {
+	return http.post(PORT1 + `/auroraWeb/note/delete`, params);
+};
+
+export const getNoteDetail = (params: { id: number }) => {
+	return http.post<{
+		id: string;
+		content: string;
+		createTime: string;
+		images: string;
+	}>(PORT1 + `/auroraWeb/note/detail`, params);
+};
+
+export const getAllNoteCreateTime = () => {
+	return http.post(PORT1 + "/auroraWeb/note/createTime/all");
+};

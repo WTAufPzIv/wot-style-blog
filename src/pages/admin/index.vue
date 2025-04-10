@@ -13,6 +13,7 @@
 			<div class="admin-main-container" :key="tab">
 				<PostBlog v-if="tab === '发博客'"></PostBlog>
 				<PostPic v-if="tab === '发图片'"></PostPic>
+				<PostNote v-if="tab === '发随记'"></PostNote>
 			</div>
 		</transition>
 	</CommonWrapper>
@@ -25,6 +26,7 @@ import CommonWrapper from "@/components/commonWrapper/index.vue";
 import useDevice from "@/hook/window";
 import PostBlog from "./postBlog/index.vue";
 import PostPic from "./postPic/index.vue";
+import PostNote from "./postMiniBlog/index.vue";
 
 const { handleCheck, handleLogout } = useAdminHook();
 const { isMobile } = useDevice();

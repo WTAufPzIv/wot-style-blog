@@ -30,7 +30,7 @@
 import useDevice from "@/hook/window";
 import { useRouter } from "vue-router";
 import { triggerBlogEditDialogHook } from "@/components/blogList/editDialog/trigger";
-import { deteleBlog, editBlog } from "@/api/modules/main";
+import { deteleBlog } from "@/api/modules/main";
 import { sleep } from "@/utils/common";
 
 const { isMobile } = useDevice();

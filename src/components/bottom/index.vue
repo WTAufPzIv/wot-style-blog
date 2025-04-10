@@ -67,6 +67,10 @@
 							<a href="https://wustzhh.github.io/Hugo-stack/" target="_blank">zhh(Han Zhang)的博客</a>
 						</div>
 					</div>
+					<div class="title">
+						<n-icon size="30" :component="AtCircleSharp" />
+						<p>关于作者</p>
+					</div>
 					<div class="right-bottom-list">
 						<div class="title">
 							<n-icon size="30" :component="Qq" />
@@ -92,7 +96,7 @@
 </template>
 
 <script setup lang="ts">
-import { Heart, LogoLinkedin, LogoWechat, Mail, LogoGithub } from "@vicons/ionicons5";
+import { Heart, LogoLinkedin, LogoWechat, Mail, LogoGithub, AtCircleSharp } from "@vicons/ionicons5";
 import { Qq } from "@vicons/fa";
 import useDevice from "@/hook/window";
 

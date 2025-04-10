@@ -1,12 +1,6 @@
 <template>
 	<div class="c-w-100">
 		<n-form ref="formRef" :model="formValue" class="c-w-100 mt30" label-placement="left" label-width="auto">
-			<n-form-item label="ID" path="id">
-				<n-input disabled v-model:value="formValue.id" placeholder="ID" />
-			</n-form-item>
-			<n-form-item label="标题" path="title" :rule="[{ required: true, message: '请输入标题' }]">
-				<n-input v-model:value="formValue.title" placeholder="标题" />
-			</n-form-item>
 			<n-form-item label="时间" path="createTime" :rule="[{ required: true }]">
 				<n-date-picker
 					class="c-w-100"
@@ -23,32 +17,20 @@
 			<n-form-item label="图片" path="images" :rule="[{ required: true, message: '请输入图片' }]">
 				<n-dynamic-input v-model:value="formValue.images" show-sort-button placeholder="请输入图片" />
 			</n-form-item>
+			<n-form-item>
+				<n-button type="primary" @click="handleSubmit" :loading="loading" :disabled="loading">提交随记</n-button>
+			</n-form-item>
 		</n-form>
-		<div class="c-w-100 mt10 bottom-wrapper">
-			<n-button type="primary" @click="handleSubmit" :loading="loading" :disabled="loading">提交修改</n-button>
-		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref } from "vue";
+import { reactive, ref } from "vue";
+import { addNote } from "@/api/modules/main";
 import { sleep } from "@/utils/common";
-import { editPhotograph } from "@/api/modules/main";
-
-const props = withDefaults(
-	defineProps<{
-		id: string;
-		title: string;
-		createTime: any;
-		content: string;
-		images: any;
-	}>(),
-	{}
-);
+import { useMessage } from "naive-ui";
 
 const formValue = reactive({
-	id: "",
-	title: "",
 	createTime: undefined,
 	content: "",
 	images: []
@@ -56,28 +38,15 @@ const formValue = reactive({
 
 const loading = ref(false);
 const formRef = ref();
+const message = useMessage();
 
 async function handleSubmit() {
-	await formRef.value?.validate();
-	await editPhotograph({ ...formValue } as any);
+	const res = await formRef.value?.validate();
+	await addNote({ ...formValue } as any);
+	message.success("添加成功");
 	await sleep(1000);
 	location.reload();
 }
-
-onMounted(() => {
-	formValue.id = props.id;
-	formValue.title = props.title;
-	formValue.createTime = props.createTime;
-	formValue.content = props.content;
-	formValue.images = props.images;
-});
 </script>
 
-<style scoped lang="scss">
-.bottom-wrapper {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-}
-</style>
+<style scoped lang="scss"></style>
