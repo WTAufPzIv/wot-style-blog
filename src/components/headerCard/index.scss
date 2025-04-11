@@ -65,6 +65,12 @@
           margin-top: 12px;
           font-size: clamp(16px, 1.5vw, 16px);
           position: relative;
+          display: -webkit-box;
+          text-overflow: ellipsis;
+          -webkit-line-clamp: 6;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+
         }
       }
     }

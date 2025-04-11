@@ -1,5 +1,5 @@
 import { h } from "vue";
-import EditImageDetail from "./index.vue";
+import EditNoteDetail from "./index.vue";
 import { useDialog } from "naive-ui";
 import { useModalCheck } from "@/hook/modalCheckHook";
 
@@ -7,7 +7,7 @@ export const triggerNoteEditDialogHook = () => {
 	const dialog = useDialog();
 	const { setHasModalOpen } = useModalCheck();
 
-	function openEditNoteDialog(params: { id: string; title: string; createTime: any; content: string; images: any }) {
+	function openEditNoteDialog(params: { id: string; createTime: any; content: string; images: any }) {
 		setHasModalOpen(true);
 		dialog.create({
 			icon: () => null,
@@ -18,7 +18,7 @@ export const triggerNoteEditDialogHook = () => {
 				background: "#1c1c1e"
 			},
 			onClose: () => setHasModalOpen(false),
-			content: () => h(EditImageDetail, params)
+			content: () => h(EditNoteDetail, params)
 		});
 	}
 

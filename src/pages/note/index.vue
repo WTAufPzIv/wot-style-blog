@@ -20,7 +20,7 @@
 			<div class="right">
 				<div class="back"></div>
 				<div class="top">
-					<paper :text="selectedNote?.content"></paper>
+					<paper :text="selectedNote?.content" :images="selectedNote?.images"></paper>
 				</div>
 			</div>
 		</div>

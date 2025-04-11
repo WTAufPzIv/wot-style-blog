@@ -60,6 +60,7 @@ async function handleSubmit() {
 }
 
 onMounted(() => {
+	console.log(props);
 	formValue.id = props.id;
 	formValue.createTime = props.createTime;
 	formValue.content = props.content;
