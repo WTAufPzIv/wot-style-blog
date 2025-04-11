@@ -1,12 +1,15 @@
 <template>
-	<div class="paper-container">
-		<div class="paper-content">
-			<p class="handwriting-font">{{ text }}</p>
+	<div class="back"></div>
+	<div class="top">
+		<div class="paper-container">
+			<div class="paper-content">
+				<p class="handwriting-font">{{ text }}</p>
+			</div>
 		</div>
-	</div>
-	<div class="paper-image">
-		<div v-for="(img, index) in images" :key="index" :class="images.length === 1 ? 'single' : 'multi'">
-			<n-image class="img-content" :src="img" />
+		<div class="paper-image">
+			<div v-for="(img, index) in images" :key="index" :class="images.length === 1 ? 'single' : 'multi'">
+				<n-image class="img-content" :src="img" />
+			</div>
 		</div>
 	</div>
 </template>
@@ -83,5 +86,25 @@ const props = withDefaults(
 			}
 		}
 	}
+}
+.back {
+	width: 99%;
+	height: 99%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	background: $common-font-color;
+	opacity: 0.9;
+}
+.top {
+	width: 99%;
+	height: 99%;
+	position: absolute;
+	right: 0;
+	top: 0;
+	background: $common-font-color;
+	padding: 24px 80px;
+	box-sizing: border-box;
+	overflow-y: scroll;
 }
 </style>

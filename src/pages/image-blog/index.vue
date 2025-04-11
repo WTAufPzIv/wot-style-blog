@@ -1,6 +1,7 @@
 <template>
 	<CommonWrapper align="center">
-		<div class="image-list-wrapper">
+		<ImageListSkeleton v-if="loading"></ImageListSkeleton>
+		<div class="image-list-wrapper" v-else>
 			<div class="image-item-wrapper" :isMobile="isMobile" v-for="item in imageBlogArr" :key="item.title">
 				<div class="image-inner" @click="() => handleGotoDetail(item)">
 					<img :src="item.images[0]" alt="" />
@@ -27,17 +28,21 @@ import { useRouter } from "vue-router";
 import { sleep } from "@/utils/common";
 import { triggerImageEditDialogHook } from "@/pages/image-blog/editDialog/trigger";
 import { useAdminHook } from "@/hook/adminHook";
+import ImageListSkeleton from "@/components/skeleton/imageList.vue";
 
 const imageBlogArr = ref<any[]>();
 const { isMobile } = useDevice();
 const router = useRouter();
 const { openEditImageDialog } = triggerImageEditDialogHook();
 const admin = ref();
+const loading = ref(true);
 const { handleCheck } = useAdminHook();
 
 async function fetchRecentIamge() {
+	loading.value = true;
 	const res: any = await getPhotographlist();
 	imageBlogArr.value = res.data;
+	loading.value = false;
 }
 
 function handleEditItem(item) {

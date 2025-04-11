@@ -18,10 +18,7 @@
 				</div>
 			</div>
 			<div class="right">
-				<div class="back"></div>
-				<div class="top">
-					<paper :text="selectedNote?.content" :images="selectedNote?.images"></paper>
-				</div>
+				<paper :text="selectedNote?.content" :images="selectedNote?.images"></paper>
 			</div>
 		</div>
 	</CommonWrapper>
@@ -142,26 +139,6 @@ onMounted(async () => {
 		position: relative;
 		margin: 0 24px;
 		box-sizing: border-box;
-		.back {
-			width: 99%;
-			height: 99%;
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			background: $common-font-color;
-			opacity: 0.9;
-		}
-		.top {
-			width: 99%;
-			height: 99%;
-			position: absolute;
-			right: 0;
-			top: 0;
-			background: $common-font-color;
-			padding: 24px 80px;
-			box-sizing: border-box;
-			overflow-y: scroll;
-		}
 	}
 }
 </style>
