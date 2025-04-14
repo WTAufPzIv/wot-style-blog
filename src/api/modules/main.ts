@@ -130,3 +130,7 @@ export const getNoteDetail = (params: { id: number }) => {
 export const getAllNoteCreateTime = () => {
 	return http.post(PORT1 + "/auroraWeb/note/createTime/all");
 };
+
+export const getMaoOfData = () => {
+	return http.post(PORT1 + "/auroraWeb/getModData");
+};
