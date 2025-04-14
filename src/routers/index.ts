@@ -65,6 +65,14 @@ const routes = [
 		meta: {
 			title: "随记"
 		}
+	},
+	{
+		path: "/htmlPar",
+		name: "htmlPar",
+		component: () => import("@/pages/htmlParserPage/index.vue"),
+		meta: {
+			title: "文章详情"
+		}
 	}
 ];
 
