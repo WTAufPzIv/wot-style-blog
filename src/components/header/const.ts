@@ -14,5 +14,9 @@ export const _pageList = [
 	{
 		path: "/note",
 		title: "随记"
+	},
+	{
+		path: "/assorted",
+		title: "什锦"
 	}
 ];

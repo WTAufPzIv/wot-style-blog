@@ -73,6 +73,14 @@ const routes = [
 		meta: {
 			title: "文章详情"
 		}
+	},
+	{
+		path: "/assorted",
+		name: "assorted",
+		component: () => import("@/pages/assorted/index.vue"),
+		meta: {
+			title: "什锦"
+		}
 	}
 ];
 
