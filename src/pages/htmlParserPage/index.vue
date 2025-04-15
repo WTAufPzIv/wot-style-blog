@@ -9,13 +9,14 @@
 
 <script setup lang="ts">
 import CommonWrapper from "@/components/commonWrapper/index.vue";
-import { onMounted, ref } from "vue";
+import { nextTick, onMounted, ref, watch } from "vue";
 import axios from "axios";
 import { useMessage } from "naive-ui";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import BlogDetailSkeleton from "@/components/skeleton/blogDetailSkeleton.vue";
 
 const route = useRoute();
+const router = useRouter();
 const url = decodeURIComponent(route.query.url as string);
 const message = useMessage();
 const renderHtml = ref("");
@@ -26,11 +27,25 @@ onMounted(async () => {
 	loading.value = true;
 	const res = await axios.get(url);
 	if (typeof res.data === "string") {
-		renderHtml.value = res.data;
+		renderHtml.value = res.data.replaceAll(/part\d+\.html#/g, "");
 	} else {
 		message.error("html文件解析失败");
 	}
 	loading.value = false;
+	nextTick(() => {
+		document.addEventListener("click", e => {
+			const anchor = (e.target as HTMLElement).closest("a");
+			if (anchor) {
+				console.log(anchor);
+				e.preventDefault();
+				const id = anchor.getAttribute("href") || "";
+				const targetEl = document.querySelector(`#${id}`);
+				if (targetEl) {
+					targetEl!.scrollIntoView();
+				}
+			}
+		});
+	});
 });
 </script>
 

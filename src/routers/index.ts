@@ -79,19 +79,17 @@ const routes = [
 const router = createRouter({
 	history: createWebHashHistory("/"),
 	routes,
-	scrollBehavior(to, from, savedPosition) {
-		return savedPosition || { top: 0 };
-	}
+	scrollBehavior: ((to, from, savedPosition) => {
+		if (to.hash) {
+			// 检测 URL 中的锚点
+			return {
+				el: to.hash,
+				behavior: "smooth", // 启用平滑滚动
+				offset: { y: 20 } // 可选的滚动偏移量
+			};
+		}
+		return savedPosition || { top: 0 }; // 默认滚动到顶部
+	}) as any
 });
-
-// // 全局前置守卫（保持不变）
-// router.beforeEach((to, from, next) => {
-// 	document.title = to.meta.title || "默认标题";
-// 	if (to.meta.requiresAuth && !isAuthenticated()) {
-// 		next({ name: "login" });
-// 	} else {
-// 		next();
-// 	}
-// });
 
 export default router;
