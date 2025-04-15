@@ -25,44 +25,113 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { nextTick, onMounted, ref } from "vue";
 import { useMessage } from "naive-ui";
+import { sleep } from "@/utils/common";
 
 const statusBox = ref(new Array(24).fill(0));
 const downBox = ref(new Array(24).fill(0));
 const linePointer = ref(3);
 const message = useMessage();
-const startPayload = [
-	[16, 16, 16, 16], // I
-	[0, 0, 48, 48], // O
-	[0, 0, 16, 56], // T
-	[0, 0, 48, 24], // S
-	[0, 0, 48, 48], // Z
-	[0, 0, 16, 56], // J
-	[0, 0, 16, 56] // L
+// 预定义所有方块类型的旋转状态
+// 此处定义的旋转状态遵循一个原则：即旋转不会占用向下的空间
+const shapeRotations = [
+	[
+		// I 型（0）
+		[16, 16, 16, 16], // 竖直状态
+		[0, 0, 0, 120], // 水平状态（960）
+		[16, 16, 16, 16], // 再次竖直
+		[0, 0, 0, 120] // 再次水平
+	],
+	[
+		// O 型（1）
+		[0, 0, 48, 48], // 所有旋转状态相同
+		[0, 0, 48, 48],
+		[0, 0, 48, 48],
+		[0, 0, 48, 48]
+	],
+	[
+		// T 型（2）
+		[0, 0, 16, 56], // 原始状态
+		[0, 32, 48, 32], // 顺时针90°
+		[0, 0, 56, 16], // 180°
+		[0, 32, 96, 32] // 270°
+	],
+	[
+		// S 型（3）
+		[0, 0, 48, 24], // 原始状态
+		[0, 16, 48, 32], // 顺时针90°
+		[0, 0, 48, 24],
+		[0, 16, 48, 32]
+	],
+	[
+		// Z 型（4）
+		[0, 0, 24, 48], // 原始状态
+		[0, 32, 48, 16], // 顺时针90°
+		[0, 0, 24, 48],
+		[0, 32, 48, 16]
+	],
+	[
+		// J 型（5）
+		[0, 16, 16, 48], // 原始状态
+		[0, 0, 64, 112], // 顺时针90°
+		[0, 48, 32, 32], // 180°
+		[0, 0, 112, 16] // 270°
+	],
+	[
+		// L 型（6）
+		[0, 32, 32, 48], // 原始状态
+		[0, 0, 112, 64], // 顺时针90°
+		[0, 48, 16, 16], // 180°
+		[0, 0, 16, 112] // 270°
+	]
 ];
+// 新增变量记录当前方块类型和旋转状态
+const currentShapeIndex = ref(0);
+const currentRotation = ref(0);
 
 function generalRandomStart() {
 	downBox.value = new Array(24).fill(0);
 	linePointer.value = 3;
-	const randomItem = startPayload[Math.floor(Math.random() * startPayload.length)];
+	const randomIndexX = Math.floor(Math.random() * shapeRotations.length);
+	const randomIndexY = Math.floor(Math.random() * 4);
+	currentShapeIndex.value = randomIndexX;
+	currentRotation.value = randomIndexY;
+	const randomItem = shapeRotations[randomIndexX][randomIndexY];
 	for (let i = 0; i < 4; i++) {
 		downBox.value[i] = randomItem[i];
 	}
 }
 
+// 判断num2是否可以通过num1移位运算得到
+function getShiftAmount(num1, num2) {
+	// 如果 num1 和 num2 相等，返回 0
+	if (num1 === num2) {
+		return 0;
+	}
+	// 检查是否可以通过左移得到 num2
+	let leftShift = num2 / num1;
+	if (leftShift === 2 ** Math.floor(Math.log2(leftShift))) {
+		return Math.log2(leftShift); // 左移多少位
+	}
+	// 检查是否可以通过右移得到 num2
+	let rightShift = num1 / num2;
+	if (rightShift === 2 ** Math.floor(Math.log2(rightShift))) {
+		return -Math.log2(rightShift); // 右移多少位
+	}
+	// 如果无法通过移位得到，返回 0
+	return 0;
+}
+
 function removeLeadingZeros(arr) {
 	// 提取所有非零项
 	let nonZero = arr.filter(num => num !== 0);
-
 	// 计算原数组中的零
 	let zeros = arr.filter(num => num === 0);
-
 	// 保证最前面保留一个零（如果原始数组最开始有零）
 	if (zeros.length > 0) {
 		zeros = [0].concat(zeros.slice(1)); // 保证非首位零不被丢弃
 	}
-
 	// 合并结果：前面的零 + 所有的非零项
 	return zeros.concat(nonZero);
 }
@@ -86,22 +155,11 @@ function handleRight() {
 }
 
 function handleRotate() {
-	// 提取当前活动方块的二进制位数据
-	const activeShape = downBox.value.slice(0, 4).map(num => num.toString(2).padStart(10, "0").split(""));
-
-	// 矩阵顺时针旋转算法
-	const rotated = activeShape[0].map((_, i) => activeShape.map(row => row[row.length - 1 - i]));
-
-	// 将旋转后的矩阵转换为数值
-	const rotatedNumbers = rotated.map(row => parseInt(row.join("").padEnd(10, "0"), 2));
-
-	// 碰撞检测
-	const isValid = rotatedNumbers.every((num, i) => (num & statusBox.value[i]) === 0 && num.toString(2).length <= 10);
-
-	// 更新数据
-	if (isValid) {
-		rotatedNumbers.forEach((num, i) => (downBox.value[i] = num));
-	}
+	// 核心思路，利用linePointer得到当前方块所在的行数
+	// 然后利用当前方块选择指针和旋转角度指针得到当前方块的原始状态（就是正中间）
+	// 分别取出原始样式和当前下落方块的最后一行，通过二进制位移对比得出相较于原始状态，当前下落方块左右移动的距离
+	// 此时先进行旋转，得到旋转后的图在最中间的状态
+	// 根据第三步求得的位移，调用左移或右移函数，将方块放到正确的位置，同时可以避免碰撞穿模
 }
 
 function handleMerge() {
@@ -114,24 +172,35 @@ function handleMerge() {
 	}
 	statusBox.value = removeLeadingZeros(newStatusBox);
 	downBox.value = new Array(24).fill(0);
-	if (statusBox.value[4] !== 0) {
+	// 顶部溢出视为游戏结束
+	if (statusBox.value[3] !== 0) {
 		message.warning("游戏结束");
 	} else {
 		generalRandomStart();
 	}
 }
 
-function handleDown() {
+function handleDown(isAuto = true) {
 	let hasStock = false;
 	if ((downBox.value[linePointer.value] & statusBox.value[linePointer.value + 1]) !== 0) hasStock = true;
 	if (hasStock) {
+		// 如果开局就卡住则直接执行合并
 		handleMerge();
-	}
-	if (!hasStock) {
+	} else {
+		// 否则先执行一次下落
 		downBox.value = [0].concat(downBox.value.slice(0, -1));
 		linePointer.value++;
-		if ((downBox.value[linePointer.value] & statusBox.value[linePointer.value + 1]) !== 0 || linePointer.value === 23)
+		// 下落完毕后检测是否卡住
+		// 如果卡住了，则执行合并
+		if ((downBox.value[linePointer.value] & statusBox.value[linePointer.value + 1]) !== 0 || linePointer.value === 23) {
 			handleMerge();
+		}
+		// 仅非用户手动下落时启动下一次自动下落
+		isAuto &&
+			nextTick(async () => {
+				await sleep(1000);
+				handleDown(true);
+			});
 	}
 }
 
@@ -139,6 +208,7 @@ function init() {
 	downBox.value = new Array(24).fill(0);
 	statusBox.value = new Array(24).fill(0);
 	generalRandomStart();
+	// handleDown();
 }
 
 onMounted(() => {
@@ -148,7 +218,7 @@ onMounted(() => {
 		console.log(e.code);
 		if (e.code === "ArrowLeft") handleLeft();
 		if (e.code === "ArrowRight") handleRight();
-		if (e.code === "ArrowDown") handleDown();
+		if (e.code === "ArrowDown") handleDown(false);
 		if (e.code === "ArrowUp") handleRotate();
 	};
 });
