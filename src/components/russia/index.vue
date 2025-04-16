@@ -7,16 +7,32 @@
 						v-for="(y, indexx) in (x | downBox[index]).toString(2).padStart(10, '0')"
 						:key="indexx"
 						class="item-y"
-						:style="{ background: y === '1' ? '#FF9920' : '' }"
+						:style="{ background: y === '1' ? 'rgb(55, 251, 207)' : '' }"
 					></div>
 				</div>
 			</div>
-			<div class="line-count">
-				<span>已消除</span>
-				<p>{{ linePointer }}</p>
+			<div class="score-count">
+				<span>总得分</span>
+				<p>{{ totalCount }}</p>
 			</div>
-			<div class="next">
-				<p></p>
+			<div class="line-count">
+				<span>消除行数</span>
+				<p>{{ totalLine }}</p>
+			</div>
+			<div class="pause-play" @click="handleStartGame" v-if="isPause">
+				<n-icon size="40">
+					<Play />
+				</n-icon>
+			</div>
+			<div class="pause-play" @click="handlePauseGame" v-else>
+				<n-icon size="40">
+					<Pause />
+				</n-icon>
+			</div>
+			<div class="restart-play" @click="generalRestartGame()">
+				<n-icon size="40">
+					<RestartAltFilled />
+				</n-icon>
 			</div>
 		</div>
 	</div>
@@ -25,13 +41,19 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, onMounted, ref } from "vue";
 import { useMessage } from "naive-ui";
-import { sleep } from "@/utils/common";
+import { getRandomColor, sleep } from "@/utils/common";
 import { onBeforeRouteLeave } from "vue-router";
+import { Play, Pause } from "@vicons/ionicons5";
+import { RestartAltFilled } from "@vicons/material";
 
 const statusBox = ref(new Array(24).fill(0));
 const downBox = ref(new Array(24).fill(0));
+const currentBlockColor = ref("#FF9920");
 const linePointer = ref(3);
 const message = useMessage();
+const totalCount = ref(0);
+const totalLine = ref(0);
+const isPause = ref(true);
 // 预定义所有方块类型的旋转状态
 // 此处定义的旋转状态遵循一个原则：即旋转不会占用向下的空间
 const shapeRotations = [
@@ -100,6 +122,7 @@ function generalRandomStart() {
 	for (let i = 0; i < 4; i++) {
 		downBox.value[i] = randomItem[i];
 	}
+	currentBlockColor.value = getRandomColor();
 }
 
 // 判断num2是否可以通过num1移位运算得到
@@ -125,14 +148,26 @@ function getShiftAmount(num1, num2) {
 function removeLeadingZeros(arr) {
 	// 提取所有非零项
 	let nonZero = arr.filter(num => num !== 0);
-	// 计算原数组中的零
+	// 提取原数组中的零
 	let zeros = arr.filter(num => num === 0);
+	// 计算首位零之后的零的个数
+	// 找到第一个非零项的位置
+	let firstNonZeroIndex = arr.findIndex(num => num !== 0);
+	// 如果没有非零项，整个数组就是零
+	let leadingZeros = firstNonZeroIndex !== -1 ? firstNonZeroIndex : 0;
+	// 计算中间消除的零个数
+	let removedZeros = zeros.length - leadingZeros;
 	// 保证最前面保留一个零（如果原始数组最开始有零）
-	if (zeros.length > 0) {
+	if (leadingZeros > 0) {
 		zeros = [0].concat(zeros.slice(1)); // 保证非首位零不被丢弃
 	}
 	// 合并结果：前面的零 + 所有的非零项
-	return zeros.concat(nonZero);
+	let resultArray = zeros.concat(nonZero);
+	// 返回包含结果数组和消除的零个数的对象
+	return {
+		resultArray: resultArray,
+		removedZeros: removedZeros
+	};
 }
 
 function handleLeft() {
@@ -164,7 +199,6 @@ function handleRotate() {
 		];
 	// 分别取出原始样式和当前下落方块的最后一行，通过二进制位移对比得出相较于原始状态，当前下落方块左右移动的距离
 	const offset = getShiftAmount(downBox.value[linePointer.value], currentBlock[3]);
-	console.log(offset);
 	// 此时先进行旋转，得到旋转后的图在最中间的状态
 	for (let i = 0; i < 4; i++) {
 		downBox.value[linePointer.value - i] = newBlock[3 - i];
@@ -184,7 +218,11 @@ function handleMerge() {
 			newStatusBox[i] = 0;
 		}
 	}
-	statusBox.value = removeLeadingZeros(newStatusBox);
+	const { resultArray, removedZeros } = removeLeadingZeros(newStatusBox);
+	totalLine.value += removedZeros;
+	// 求平方
+	totalCount.value += Math.pow(removedZeros, 2) * 100;
+	statusBox.value = resultArray;
 	downBox.value = new Array(24).fill(0);
 	// 顶部溢出视为游戏结束
 	if (statusBox.value[3] !== 0) {
@@ -195,6 +233,7 @@ function handleMerge() {
 }
 
 function handleDown(isAuto = true) {
+	if (isPause.value) return;
 	let hasStock = false;
 	if ((downBox.value[linePointer.value] & statusBox.value[linePointer.value + 1]) !== 0) hasStock = true;
 	if (hasStock) {
@@ -222,11 +261,30 @@ function init() {
 	downBox.value = new Array(24).fill(0);
 	statusBox.value = new Array(24).fill(0);
 	generalRandomStart();
-	// handleDown();
+	totalCount.value = 0;
+	totalLine.value = 0;
+	isPause.value = true;
 }
 
 function stop() {
 	downBox.value = new Array(24).fill(0);
+}
+
+function handleStartGame() {
+	isPause.value = false;
+	handleDown();
+}
+
+function handlePauseGame() {
+	isPause.value = true;
+}
+
+function generalRestartGame() {
+	init();
+	isPause.value = false;
+	nextTick(() => {
+		handleDown();
+	});
 }
 
 onMounted(() => {
