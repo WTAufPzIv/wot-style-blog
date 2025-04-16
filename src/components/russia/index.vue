@@ -8,9 +8,7 @@
 						:key="indexx"
 						class="item-y"
 						:style="{ background: y === '1' ? '#FF9920' : '' }"
-					>
-						{{ y }}
-					</div>
+					></div>
 				</div>
 			</div>
 			<div class="line-count">
@@ -25,9 +23,10 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick, onMounted, ref } from "vue";
+import { nextTick, onBeforeUnmount, onMounted, ref } from "vue";
 import { useMessage } from "naive-ui";
 import { sleep } from "@/utils/common";
+import { onBeforeRouteLeave } from "vue-router";
 
 const statusBox = ref(new Array(24).fill(0));
 const downBox = ref(new Array(24).fill(0));
@@ -155,11 +154,26 @@ function handleRight() {
 }
 
 function handleRotate() {
+	if (linePointer.value <= 3) return;
 	// 核心思路，利用linePointer得到当前方块所在的行数
 	// 然后利用当前方块选择指针和旋转角度指针得到当前方块的原始状态（就是正中间）
+	const currentBlock = shapeRotations[currentShapeIndex.value][currentRotation.value];
+	const newBlock =
+		shapeRotations[currentShapeIndex.value][
+			currentRotation.value + 1 > 3 ? (currentRotation.value = 0) : (currentRotation.value += 1)
+		];
 	// 分别取出原始样式和当前下落方块的最后一行，通过二进制位移对比得出相较于原始状态，当前下落方块左右移动的距离
+	const offset = getShiftAmount(downBox.value[linePointer.value], currentBlock[3]);
+	console.log(offset);
 	// 此时先进行旋转，得到旋转后的图在最中间的状态
-	// 根据第三步求得的位移，调用左移或右移函数，将方块放到正确的位置，同时可以避免碰撞穿模
+	for (let i = 0; i < 4; i++) {
+		downBox.value[linePointer.value - i] = newBlock[3 - i];
+	}
+	// 根据上面求得的位移，调用左移或右移函数，将方块放到正确的位置，同时可以避免碰撞穿模
+	for (let i = 0; i < Math.abs(offset); i++) {
+		offset < 0 && handleLeft();
+		offset > 0 && handleRight();
+	}
 }
 
 function handleMerge() {
@@ -211,6 +225,10 @@ function init() {
 	// handleDown();
 }
 
+function stop() {
+	downBox.value = new Array(24).fill(0);
+}
+
 onMounted(() => {
 	init();
 	document.onkeydown = (e: any) => {
@@ -221,6 +239,14 @@ onMounted(() => {
 		if (e.code === "ArrowDown") handleDown(false);
 		if (e.code === "ArrowUp") handleRotate();
 	};
+});
+
+onBeforeRouteLeave(() => {
+	stop();
+});
+
+onBeforeUnmount(() => {
+	stop();
 });
 </script>
 

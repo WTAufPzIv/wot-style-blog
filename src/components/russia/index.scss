@@ -17,7 +17,7 @@
     position: relative;
     .game-inner {
       width: 200px;
-      height: 400px;
+      height: 400pREADx;
       background: $common-bg;
       display: flex;
       flex-direction: column;
@@ -35,6 +35,8 @@
         height: 20px;
         text-align: center;
         line-height: 20px;
+        box-sizing: border-box;
+        border: 1px solid $common-bg-l2;
       }
     }
   }
