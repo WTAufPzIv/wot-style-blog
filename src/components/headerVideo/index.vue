@@ -28,7 +28,7 @@ function gotoMao() {
 	router.push({
 		path: "/htmlPar",
 		query: {
-			url: encodeURIComponent(`https://obj261.asia/wot-style-blog/mao/${fileName.value}`)
+			url: encodeURIComponent(`https://wtaufpziv.github.io/wot-style-blog/mao/${fileName.value}`)
 		}
 	});
 }
