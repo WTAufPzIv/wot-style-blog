@@ -73,7 +73,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 		build: {
 			sourcemap: process.env.NODE_ENV !== "production",
 			target: "modules", // 默认 "modules"
-			outDir: "wot-style-blog-web",
+			outDir: "dist",
 			minify: "esbuild",
 			chunkSizeWarningLimit: 1500,
 			rollupOptions: {
