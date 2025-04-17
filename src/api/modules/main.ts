@@ -1,5 +1,5 @@
 import http from "@/api";
-import { CommonVo, ReqPage } from "@/api/interface";
+import { CommonVo } from "@/api/interface";
 
 const PORT1 = "/api";
 

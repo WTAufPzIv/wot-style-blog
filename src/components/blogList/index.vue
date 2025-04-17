@@ -1,7 +1,7 @@
 <template>
 	<div class="recent-wrapper">
 		<div class="recent-list-wrapper" :isMobile="isMobile">
-			<div class="recent-item" v-for="item in arrPayload" :key="item">
+			<div class="recent-item" v-for="(item, index) in arrPayload" :key="index">
 				<div class="recent-container">
 					<div class="image-and-title">
 						<img :src="item.headImage" alt="" @click="() => gotoBlogDetail(item)" />
