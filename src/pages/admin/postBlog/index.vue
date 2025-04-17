@@ -48,7 +48,7 @@ import { addBlog } from "@/api/modules/main";
 import { sleep } from "@/utils/common";
 
 const hasUpload = ref(false);
-const markdownUrl = ref("https://wtaufpziv.github.io/wot-style-blog/mds/test.md");
+const markdownUrl = ref("https://fv215b183.asia//wot-style-blog/mds/test.md");
 const MdViewerRef = ref();
 const renderText = ref("");
 const message = useMessage();
@@ -58,7 +58,7 @@ const formValue = reactive({
 	title: "",
 	createTime: undefined,
 	category: "",
-	headImage: "https://wtaufpziv.github.io/wot-style-blog/images/JustForTest.jpg",
+	headImage: "https://fv215b183.asia//wot-style-blog/images/JustForTest.jpg",
 	miniDesc: ""
 });
 
