@@ -1,7 +1,7 @@
 <template>
-	<headVideo v-if="!isMobile"></headVideo>
+	<headVideo></headVideo>
 	<div class="home-screen-two">
-		<headerCard :style="{ marginTop: isMobile ? '24px' : '26vw' }"></headerCard>
+		<headerCard :style="{ marginTop: isMobile ? '50vw' : '26vw' }"></headerCard>
 		<DevideTitle>最近文章</DevideTitle>
 		<RecentBlog show-more :arrPayload="arrPayload"></RecentBlog>
 		<DevideTitle>摄影图库</DevideTitle>

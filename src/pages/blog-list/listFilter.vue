@@ -1,5 +1,13 @@
 <template>
-	<n-form inline ref="formRef" :model="formValue" class="c-w-100 mt30" label-placement="left" label-width="auto" size="large">
+	<n-form
+		:inline="!isMobile"
+		ref="formRef"
+		:model="formValue"
+		:class="isMobile ? 'c-w-100 mt10' : 'c-w-100 mt30'"
+		label-placement="left"
+		label-width="auto"
+		:size="isMobile ? 'small' : 'large'"
+	>
 		<n-form-item label="标题" path="keyword">
 			<n-input v-model:value="formValue.keywords" clearable placeholder="标题" />
 		</n-form-item>
@@ -26,7 +34,7 @@
 				filterable
 			/>
 		</n-form-item>
-		<n-form-item :style="{ width: '150px' }">
+		<n-form-item :style="{ width: isMobile ? '100%' : '150px' }">
 			<n-button class="c-w-100" type="primary" @click="handleSubmit">
 				<template #default>
 					<span class="ml10">搜索</span>
@@ -44,6 +52,7 @@ import { computed, onMounted, reactive, ref } from "vue";
 import { Search } from "@vicons/ionicons5";
 import { cloneDeep } from "lodash";
 import { getAllCategory } from "@/api/modules/main";
+import useDevice from "@/hook/window";
 
 const formValue = reactive({
 	keywords: "",
@@ -53,6 +62,7 @@ const formValue = reactive({
 const exposeSearchParams = ref();
 const cateOptions = ref([]);
 const cascaderRef = ref();
+const { isMobile } = useDevice();
 
 function handleSubmit() {
 	exposeSearchParams.value = cloneDeep(formValue);

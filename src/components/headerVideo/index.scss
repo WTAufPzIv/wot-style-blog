@@ -1,7 +1,12 @@
 .head-video-wrapper {
+  &[isMobile=true] {
+    aspect-ratio: 2/1;
+  }
+  &[isMobile=false] {
+    aspect-ratio: 2/0.5;
+  }
   position: absolute;
   width: 100vw;
-  aspect-ratio: 2/0.5;
   left: 0;
   top: 0;
   .title {
@@ -18,13 +23,16 @@
     align-items: center;
     background: rgba(0, 0, 0, 0.5);
     .line1 {
-      font-family: 华文行楷;
-      font-size: 4em;
-      //font-weight: bold;
+      font-family: HLX;
+      font-size: clamp(36px, 5vw, 75px);
+      font-weight: bold;
+      &[isMobile=true] {
+        margin: 12px 0;
+      }
+      &[isMobile=false] {
+        margin: unset;
+      }
     }
-    //.line2 {
-    //  font-family: GeTe;
-    //}
   }
 }
 .video-wrapper {
@@ -40,22 +48,5 @@
     min-width: 120vw;
     height: 100vh;
     object-fit: cover;
-  }
-}
-
-.pc {
-  span {
-    font-size: 3vw;
-    color: $common-font-color;
-    margin-top: 10px;
-    letter-spacing: 10px;
-  }
-}
-.mo {
-  span {
-    font-size: 9vw;
-    color: $common-font-color;
-    margin-top: 10px;
-    letter-spacing: 8px;
   }
 }

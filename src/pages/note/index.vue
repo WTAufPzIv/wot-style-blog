@@ -1,14 +1,14 @@
 <template>
 	<CommonWrapper align="center">
-		<div class="note-wrapper">
-			<div class="left">
-				<div class="calendar-wrapper">
+		<div class="note-wrapper" :isMobile="isMobile">
+			<div class="left" :isMobile="isMobile">
+				<div class="calendar-wrapper" :isMobile="isMobile">
 					<n-calendar class="calendar-inner" v-model:value="selectedDate">
 						<template #default="{ date }"> {{ date }}日 </template>
 						<template #header="{ year, month }"> {{ year }}年{{ month }}月 </template>
 					</n-calendar>
 				</div>
-				<div class="note-list-item mt20" v-for="item in noteList" :key="item.content" @click="() => (selectedNote = item)">
+				<div class="note-list-item" v-for="item in noteList" :key="item.content" @click="handleSelectNode(item)">
 					<p class="time">{{ item.createTime }}</p>
 					<p class="content">{{ item.content }}</p>
 					<div class="btn-group" v-if="!!admin && !isMobile">
@@ -17,8 +17,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="right">
+			<div class="right" :isMobile="isMobile" :style="{ left: isMobile ? openLeft : 'unset' }">
 				<paper :text="selectedNote?.content" :images="selectedNote?.images"></paper>
+				<div class="close-right" v-if="isMobile">
+					<div class="common-button-black" @click="openLeft = '100vw'">关闭</div>
+				</div>
 			</div>
 		</div>
 	</CommonWrapper>
@@ -41,6 +44,7 @@ const admin = ref();
 const { isMobile } = useDevice();
 const { handleCheck } = useAdminHook();
 const { openEditNoteDialog } = triggerNoteEditDialogHook();
+const openLeft = ref("100vw");
 
 function getYYYYMMDD(date: Date) {
 	console.log(date);
@@ -81,6 +85,13 @@ async function handleDeleteItem(item) {
 	location.reload();
 }
 
+function handleSelectNode(item) {
+	selectedNote.value = item;
+	if (isMobile.value) {
+		openLeft.value = "0";
+	}
+}
+
 onMounted(async () => {
 	const res = await handleCheck();
 	admin.value = res;
@@ -88,62 +99,5 @@ onMounted(async () => {
 </script>
 
 <style scoped lang="scss">
-.note-wrapper {
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	position: relative;
-	.left {
-		width: 40%;
-		height: calc(100vh - 120px);
-		padding: 12px;
-		box-sizing: border-box;
-		overflow-y: scroll;
-		.calendar-wrapper {
-			width: 100%;
-			aspect-ratio: 1/1;
-			.calendar-inner {
-				width: 100%;
-				height: 100%;
-			}
-		}
-		.note-list-item {
-			cursor: pointer;
-			width: 100%;
-			background: $common-bg-l2;
-			margin-bottom: 12px;
-			border-radius: 12px;
-			padding: 6px 16px;
-			box-sizing: border-box;
-			position: relative;
-			.time {
-				color: $common-font-color;
-				font-size: 12px;
-			}
-			.content {
-				font-size: 16px;
-				color: $common-font-color;
-				display: -webkit-box;
-				text-overflow: ellipsis;
-				overflow: hidden;
-				-webkit-line-clamp: 2;
-				-webkit-box-orient: vertical;
-			}
-			.btn-group {
-				position: absolute;
-				top: 0;
-				right: 0;
-				display: flex;
-				flex-direction: column;
-			}
-		}
-	}
-	.right {
-		width: 60%;
-		height: calc(100vh - 120px);
-		position: relative;
-		margin: 0 24px;
-		box-sizing: border-box;
-	}
-}
+@import "./index.scss";
 </style>

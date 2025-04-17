@@ -1,7 +1,7 @@
 <template>
-	<div :class="['head-video-wrapper', isMobile ? 'mo' : 'pc']">
+	<div :class="['head-video-wrapper', isMobile ? 'mo' : 'pc']" :isMobile="isMobile">
 		<div class="title">
-			<p class="line1">一万年太久，只争朝夕！</p>
+			<p class="line1" :isMobile="isMobile">一万年太久，只争朝夕！</p>
 			<div class="more-btn mt20">
 				<div class="common-button-default" @click="gotoMao">每日毛选</div>
 			</div>

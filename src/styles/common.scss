@@ -95,3 +95,23 @@
     color: #474747;
   }
 }
+
+.common-button-black {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 11px 28px;
+  border: 2px solid #311d00;
+  border-radius: 4px;
+  color: #311d00;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: background-color .15s ease-out,color .15s ease-out;
+  cursor: pointer;
+  &:hover {
+    background: #311d00;
+    color: #474747;
+  }
+}
