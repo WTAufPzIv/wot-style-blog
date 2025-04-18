@@ -1,4 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
+import { useRouterLoading } from "@/hook/routerLoadingHook";
+
+const { startLoading, endLoading } = useRouterLoading();
 
 // 基础路由配置
 const routes = [
@@ -98,6 +101,15 @@ const router = createRouter({
 		}
 		return savedPosition || { top: 0 }; // 默认滚动到顶部
 	}) as any
+});
+
+router.beforeEach((to, from, next) => {
+	startLoading(); // 开始加载
+	next();
+});
+
+router.afterEach(() => {
+	endLoading();
 });
 
 export default router;

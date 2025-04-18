@@ -31,10 +31,22 @@
 <script setup lang="ts">
 import { _pageList } from "./const";
 import useDevice from "@/hook/window";
-import { ref } from "vue";
+import { ref, watch } from "vue";
+import { useRouterLoading } from "@/hook/routerLoadingHook";
+import { useLoadingBar } from "naive-ui";
 
 const isOpenMoMenu = ref(false);
 const { isMobile } = useDevice();
+const { isLoading } = useRouterLoading();
+const loadingBar = useLoadingBar();
+
+watch(
+	() => isLoading.value,
+	newval => {
+		if (newval) loadingBar.start();
+		else loadingBar.finish();
+	}
+);
 </script>
 
 <style scoped lang="scss">

@@ -2,7 +2,9 @@
 	<n-config-provider :theme="darkTheme">
 		<n-dialog-provider>
 			<n-message-provider>
-				<router-view></router-view>
+				<n-loading-bar-provider>
+					<router-view></router-view>
+				</n-loading-bar-provider>
 			</n-message-provider>
 		</n-dialog-provider>
 	</n-config-provider>
@@ -11,6 +13,9 @@
 <script setup lang="ts">
 import { darkTheme } from "naive-ui";
 import { onMounted } from "vue";
+import { useRouterLoading } from "@/hook/routerLoadingHook";
+
+const { init } = useRouterLoading();
 
 const observer = new MutationObserver(mutations => {
 	mutations.forEach(mutation => {
@@ -27,6 +32,7 @@ const observer = new MutationObserver(mutations => {
 });
 
 onMounted(() => {
+	init();
 	observer.observe(document.documentElement, {
 		childList: true,
 		subtree: true
