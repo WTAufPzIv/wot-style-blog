@@ -35,7 +35,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
 			// 跨域代理配置
 			proxy: {
 				"^/api": {
-					target: "http://127.0.0.1:9093", // dev
+					target: "http://96.44.169.103:9093", // dev
 					changeOrigin: true,
 					rewrite: path => path.replace(/^\/api/, "")
 				}
