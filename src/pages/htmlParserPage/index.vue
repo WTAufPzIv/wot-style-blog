@@ -12,7 +12,7 @@ import CommonWrapper from "@/components/commonWrapper/index.vue";
 import { nextTick, onMounted, ref, watch } from "vue";
 import axios from "axios";
 import { useMessage } from "naive-ui";
-import { useRoute, useRouter } from "vue-router";
+import { onBeforeRouteLeave, useRoute, useRouter } from "vue-router";
 import BlogDetailSkeleton from "@/components/skeleton/blogDetailSkeleton.vue";
 
 const route = useRoute();
@@ -21,6 +21,18 @@ const url = decodeURIComponent(route.query.url as string);
 const message = useMessage();
 const renderHtml = ref("");
 const loading = ref(false);
+
+function handleProxyAClick(e) {
+	const anchor = (e.target as HTMLElement).closest("a");
+	if (anchor) {
+		e.preventDefault();
+		const id = anchor.getAttribute("href") || "";
+		const targetEl = document.querySelector(`#${id}`);
+		if (targetEl) {
+			targetEl!.scrollIntoView();
+		}
+	}
+}
 
 onMounted(async () => {
 	if (!url) return;
@@ -33,19 +45,12 @@ onMounted(async () => {
 	}
 	loading.value = false;
 	nextTick(() => {
-		document.addEventListener("click", e => {
-			const anchor = (e.target as HTMLElement).closest("a");
-			if (anchor) {
-				console.log(anchor);
-				e.preventDefault();
-				const id = anchor.getAttribute("href") || "";
-				const targetEl = document.querySelector(`#${id}`);
-				if (targetEl) {
-					targetEl!.scrollIntoView();
-				}
-			}
-		});
+		document.addEventListener("click", handleProxyAClick);
 	});
+});
+
+onBeforeRouteLeave(() => {
+	document.removeEventListener("click", handleProxyAClick);
 });
 </script>
 

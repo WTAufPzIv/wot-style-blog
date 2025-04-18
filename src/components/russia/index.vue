@@ -232,11 +232,19 @@ function handleMerge() {
 	}
 }
 
+function checkIsStock() {
+	let hasStock = false;
+	for (let i = 0; i < 4; i++) {
+		if ((downBox.value[linePointer.value - i] & statusBox.value[linePointer.value - i + 1]) !== 0) hasStock = true;
+	}
+	return hasStock;
+}
+
 function handleDown(isAuto = true) {
 	if (isPause.value) return;
 	let hasStock = false;
 	if ((downBox.value[linePointer.value] & statusBox.value[linePointer.value + 1]) !== 0) hasStock = true;
-	if (hasStock) {
+	if (checkIsStock()) {
 		// 如果开局就卡住则直接执行合并
 		handleMerge();
 	} else {
@@ -245,7 +253,7 @@ function handleDown(isAuto = true) {
 		linePointer.value++;
 		// 下落完毕后检测是否卡住
 		// 如果卡住了，则执行合并
-		if ((downBox.value[linePointer.value] & statusBox.value[linePointer.value + 1]) !== 0 || linePointer.value === 23) {
+		if (checkIsStock() || linePointer.value === 23) {
 			handleMerge();
 		}
 		// 仅非用户手动下落时启动下一次自动下落
