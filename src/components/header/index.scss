@@ -32,12 +32,13 @@
         flex-direction: row;
         align-content: center;
         text-decoration: none;
+        margin-left: 40px;
         li {
-          text-align: center;
+          text-align: left;
           //background: #888;
           line-height: 78px;
           height: 78px;
-          width: 120px;
+          min-width: 120px;
           margin-right: 10px;
           //font-family: GeTe;
           font-size: 24px;

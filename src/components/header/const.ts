@@ -17,6 +17,10 @@ export const _pageList = [
 	},
 	{
 		path: "/assorted",
-		title: "什锦"
+		title: "小游戏"
+	},
+	{
+		path: "/cook",
+		title: "How To Cook"
 	}
 ];

@@ -82,7 +82,15 @@ const routes = [
 		name: "assorted",
 		component: () => import("@/pages/assorted/index.vue"),
 		meta: {
-			title: "什锦"
+			title: "小游戏"
+		}
+	},
+	{
+		path: "/cook",
+		name: "cook",
+		component: () => import("@/pages/cook/index.vue"),
+		meta: {
+			title: "How To Cook"
 		}
 	}
 ];

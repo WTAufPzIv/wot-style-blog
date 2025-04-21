@@ -57,7 +57,6 @@ const props = withDefaults(
 );
 
 function gotoBlogDetail(item) {
-	console.log(item);
 	router.push({
 		path: "/blogDetail",
 		query: {

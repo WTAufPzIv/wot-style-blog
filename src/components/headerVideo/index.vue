@@ -28,7 +28,7 @@ function gotoMao() {
 	router.push({
 		path: "/htmlPar",
 		query: {
-			url: encodeURIComponent(`https://fv215b183.asia//wot-style-blog/mao/${fileName.value}`)
+			url: encodeURIComponent(import.meta.env.VITE_GITHUB_PAGE_URL + `/mao/${fileName.value}`)
 		}
 	});
 }
