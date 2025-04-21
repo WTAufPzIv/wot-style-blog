@@ -65,7 +65,7 @@ onBeforeRouteLeave(() => {
 .h1 {
 	font-size: 2em;
 	margin: 1.4em 0 0.8em 0;
-	line-height: 1.5;
+	line-height: 2;
 }
 .a2 {
 	font-size: 20px;
@@ -79,5 +79,11 @@ onBeforeRouteLeave(() => {
 	color: #b8b8a2;
 	line-height: 1.9;
 	margin: 0.5rem 0;
+}
+.zs {
+	line-height: 2;
+}
+.zs1 {
+	line-height: 2;
 }
 </style>
