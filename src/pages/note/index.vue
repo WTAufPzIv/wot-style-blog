@@ -18,7 +18,12 @@
 				</div>
 			</div>
 			<div class="right" :isMobile="isMobile" :style="{ left: isMobile ? openLeft : 'unset' }">
-				<paper :text="selectedNote?.content" :images="selectedNote?.images"></paper>
+				<paper
+					v-if="selectedNote"
+					:key="selectedNote?.content"
+					:text="selectedNote?.content"
+					:images="selectedNote?.images"
+				></paper>
 				<div class="close-right" v-if="isMobile">
 					<div class="common-button-black" @click="openLeft = '100vw'">关闭</div>
 				</div>
