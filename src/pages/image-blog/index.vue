@@ -1,21 +1,23 @@
 <template>
 	<CommonWrapper align="center">
 		<ImageListSkeleton v-if="loading"></ImageListSkeleton>
-		<div class="image-list-wrapper" v-else>
-			<div class="image-item-wrapper" :isMobile="isMobile" v-for="item in imageBlogArr" :key="item.title">
-				<div class="image-inner" @click="() => handleGotoDetail(item)">
-					<img :src="item.images[0]" alt="" />
-					<div class="image-content">
-						<div class="title">{{ item.title }}</div>
-						<div class="content" v-if="!isMobile">{{ item.content }}</div>
-					</div>
-					<div class="btn-group" v-if="!!admin && !isMobile">
-						<n-button quaternary type="primary" @click.stop="() => handleEditItem(item)">编辑</n-button>
-						<n-button quaternary type="error" @click.passive="() => handleDeleteItem(item)">删除</n-button>
+		<n-collapse-transition :show="!loading">
+			<div class="image-list-wrapper">
+				<div class="image-item-wrapper" :isMobile="isMobile" v-for="item in imageBlogArr" :key="item.title">
+					<div class="image-inner" @click="() => handleGotoDetail(item)">
+						<img :src="item.images[0]" alt="" />
+						<div class="image-content">
+							<div class="title">{{ item.title }}</div>
+							<div class="content" v-if="!isMobile">{{ item.content }}</div>
+						</div>
+						<div class="btn-group" v-if="!!admin && !isMobile">
+							<n-button quaternary type="primary" @click.stop="() => handleEditItem(item)">编辑</n-button>
+							<n-button quaternary type="error" @click.passive="() => handleDeleteItem(item)">删除</n-button>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</n-collapse-transition>
 	</CommonWrapper>
 </template>
 

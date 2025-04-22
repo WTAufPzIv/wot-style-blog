@@ -3,7 +3,7 @@
 		<div class="head-bar">
 			<Header></Header>
 		</div>
-		<div class="inner" :style="{ alignItems: align }">
+		<div :class="['inner', innerScroll ? 'inner-scroll' : '']" :style="{ alignItems: align }">
 			<slot name="default"></slot>
 		</div>
 	</div>
@@ -15,9 +15,11 @@ import Header from "@/components/header/index.vue";
 const props = withDefaults(
 	defineProps<{
 		align?: "flex-start" | "center" | "flex-end";
+		innerScroll?: boolean;
 	}>(),
 	{
-		align: "flex-start"
+		align: "flex-start",
+		innerScroll: false
 	}
 );
 </script>
@@ -42,5 +44,9 @@ const props = withDefaults(
 	flex-direction: column;
 	padding: 12px;
 	box-sizing: border-box;
+}
+.inner-scroll {
+	flex: 1;
+	overflow-y: scroll;
 }
 </style>
