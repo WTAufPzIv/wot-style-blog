@@ -5,7 +5,7 @@
 				<ListFilter ref="ListFilterRef"></ListFilter>
 				<div class="main-list-wrapper">
 					<BlogListSkeleton v-if="loading" only-list></BlogListSkeleton>
-					<template v-else>
+					<n-collapse-transition :show="!loading">
 						<div class="empty-wrapper" :style="{ minHeight: '500px' }" v-if="!arrPayload?.length">
 							<n-empty description="无数据">
 								<template #icon>
@@ -16,7 +16,7 @@
 							</n-empty>
 						</div>
 						<BlogList v-else :arrPayload="arrPayload" :isAdmin="!!admin"></BlogList>
-					</template>
+					</n-collapse-transition>
 				</div>
 				<n-pagination class="mt30" :page="pageIndex" :page-count="pageCount" />
 			</div>

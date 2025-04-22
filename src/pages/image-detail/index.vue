@@ -1,16 +1,18 @@
 <template>
 	<common-wrapper>
 		<IamgeBlogDetailSkeleton v-if="loading" class="pt20"></IamgeBlogDetailSkeleton>
-		<div v-else class="image-main-wrapper">
-			<p class="title">{{ imageInfo?.title }}</p>
-			<p class="time">{{ imageInfo?.createTime }}</p>
-			<div class="content-box">
-				<p>{{ imageInfo?.content }}</p>
+		<n-collapse-transition :show="!loading">
+			<div class="image-main-wrapper">
+				<p class="title">{{ imageInfo?.title }}</p>
+				<p class="time">{{ imageInfo?.createTime }}</p>
+				<div class="content-box">
+					<p>{{ imageInfo?.content }}</p>
+				</div>
+				<div class="image-box" v-for="item in imageInfo?.images || []" :key="item">
+					<img :src="item" alt="" />
+				</div>
 			</div>
-			<div class="image-box" v-for="item in imageInfo?.images || []" :key="item">
-				<img :src="item" alt="" />
-			</div>
-		</div>
+		</n-collapse-transition>
 	</common-wrapper>
 </template>
 

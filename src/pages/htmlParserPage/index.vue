@@ -1,9 +1,11 @@
 <template>
 	<CommonWrapper>
 		<BlogDetailSkeleton v-if="loading" class="mt30"></BlogDetailSkeleton>
-		<div class="html-parser-page-wrapper" v-else>
-			<div v-html="renderHtml"></div>
-		</div>
+		<n-collapse-transition :show="!loading">
+			<div class="html-parser-page-wrapper">
+				<div v-html="renderHtml"></div>
+			</div>
+		</n-collapse-transition>
 	</CommonWrapper>
 </template>
 
