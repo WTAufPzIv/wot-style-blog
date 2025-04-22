@@ -23,7 +23,7 @@
 <script setup lang="tsx">
 import CommonWrapper from "@/components/commonWrapper/index.vue";
 import CookFilter from "./filter.vue";
-import { useTable } from "./colums.tsx";
+import { useTable } from "./colums";
 
 const { colums, renderData } = useTable();
 </script>

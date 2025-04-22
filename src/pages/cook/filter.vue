@@ -25,7 +25,7 @@ import { Search } from "@vicons/ionicons5";
 import useDevice from "@/hook/window";
 import { ref } from "vue";
 import cookMenu from "@/assets/result";
-import { useTable } from "./colums.tsx";
+import { useTable } from "./colums";
 
 const { formValue } = useTable();
 const { isMobile } = useDevice();
