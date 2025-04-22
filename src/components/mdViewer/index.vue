@@ -1,7 +1,7 @@
 <template>
-	<div class="md-viewer-wrapper" ref="mdViewerWrapper">
-		<BlogDetailSkeleton v-if="!text"></BlogDetailSkeleton>
-		<n-collapse-transition :show="!!text">
+	<BlogDetailSkeleton v-if="!text"></BlogDetailSkeleton>
+	<n-collapse-transition :show="!!text">
+		<div class="md-viewer-wrapper" ref="mdViewerWrapper">
 			<MdPreview
 				class="global-md-previewer"
 				ref="MdPreviewRef"
@@ -16,8 +16,8 @@
 			<div class="cat-wrapper" v-if="!isMobile">
 				<MdCatalog class="mt14" :scrollElement="scrollElement" theme="dark" :editor-id="mdId" :mdHeadingId="mdHeadingId" />
 			</div>
-		</n-collapse-transition>
-	</div>
+		</div>
+	</n-collapse-transition>
 </template>
 
 <script setup lang="ts">
